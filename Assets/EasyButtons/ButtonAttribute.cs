@@ -7,7 +7,7 @@ namespace EasyButtons
     /// The method must be public and have no arguments.
     /// </summary>
     /// <example>
-    /// [<see cref="ButtonAttribute"/>]
+    /// [Button]
     /// public void MyMethod()
     /// {
     ///     Debug.Log("Clicked!");
