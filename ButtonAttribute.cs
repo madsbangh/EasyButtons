@@ -4,11 +4,11 @@ namespace EasyButtons
 {
     /// <summary>
     /// Attribute to create a button in the inspector for calling the method it is attached to.
-    /// The method must have no arguments.
+    /// The method must be public and have no arguments.
     /// </summary>
     /// <example>
     /// [<see cref="ButtonAttribute"/>]
-    /// void MyMethod()
+    /// public void MyMethod()
     /// {
     ///     Debug.Log("Clicked!");
     /// }
