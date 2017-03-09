@@ -18,7 +18,7 @@ namespace EasyButtons
                 .Where(m => m.GetCustomAttributes(typeof(ButtonAttribute), true).Length > 0)
                 .Where(m => m.GetParameters().Length == 0))
             {
-                // Draws a button which invokes the method
+                // Draw a button which invokes the method
                 if (GUILayout.Button(method.Name))
                 {
                     method.Invoke(target, new object[0]);
