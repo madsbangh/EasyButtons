@@ -2,12 +2,11 @@
 using UnityEngine;
 using UnityEditor;
 
-/// <summary>
-/// Editor that adds Easy Buttons to all MonoBehaviour derived classes.
-/// </summary>
 namespace EasyButtons
 {
-    // Custom inspector for MonoBehaviour including derived classes
+    /// <summary>
+    /// Custom inspector for MonoBehaviour including derived classes.
+    /// </summary>
     [CustomEditor(typeof(MonoBehaviour), true)]
     public class ButtonEditor : Editor
     {
