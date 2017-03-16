@@ -20,7 +20,7 @@ namespace EasyButtons
                 // Draw a button which invokes the method
                 if (GUILayout.Button(method.Name))
                 {
-                    method.Invoke(target, new object[0]);
+                    method.Invoke(target, null);
                 }
             }
             // Draw the rest of the inspector as usual
