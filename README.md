@@ -1,7 +1,7 @@
-#Easy buttons for the unity default inspector
+# Easy buttons for the unity default inspector
 These tiny scripts add the ability to quickly show a button in the inspector for any zero-argument method.
 
-##How to use
+## How to use
 1. Add the EasyButtons folder to your Unity project
 2. Add the Button attribute to a method
 
