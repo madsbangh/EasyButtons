@@ -5,9 +5,10 @@ using UnityEditor;
 namespace EasyButtons
 {
     /// <summary>
-    /// Base class for making EasyButtons work
+    /// Custom inspector for Object including derived classes.
     /// </summary>
-    public abstract class ButtonEditorBase : Editor
+    [CustomEditor(typeof(Object), true)]
+    public class ObjectEditor : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -26,16 +27,4 @@ namespace EasyButtons
             DrawDefaultInspector();
         }
     }
-
-    /// <summary>
-    /// Custom inspector for MonoBehaviour including derived classes.
-    /// </summary>
-    [CustomEditor(typeof(MonoBehaviour), true)]
-    public class MonoBehaviourEditor : ButtonEditorBase { }
-
-    /// <summary>
-    /// Custom inspector for ScriptableObject including derived classes.
-    /// </summary>
-    [CustomEditor(typeof(ScriptableObject), true)]
-    public class ScriptableObjectEditor : ButtonEditorBase { }
 }
