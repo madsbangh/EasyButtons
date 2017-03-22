@@ -17,7 +17,7 @@ namespace EasyButtons
                 .Where(m => m.GetParameters().Length == 0))
             {
                 // Draw a button which invokes the method
-                if (GUILayout.Button(method.Name))
+                if (GUILayout.Button(ObjectNames.NicifyVariableName(method.Name)))
                 {
                     method.Invoke(target, null);
                 }
