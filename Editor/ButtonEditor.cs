@@ -7,6 +7,7 @@ namespace EasyButtons
     /// <summary>
     /// Custom inspector for Object including derived classes.
     /// </summary>
+    [CanEditMultipleObjects]
     [CustomEditor(typeof(Object), true)]
     public class ObjectEditor : Editor
     {
@@ -20,7 +21,10 @@ namespace EasyButtons
                 // Draw a button which invokes the method
                 if (GUILayout.Button(ObjectNames.NicifyVariableName(method.Name)))
                 {
-                    method.Invoke(target, null);
+                    foreach (var target in targets)
+                    {
+                        method.Invoke(target, null); 
+                    }
                 }
             }
             // Draw the rest of the inspector as usual
