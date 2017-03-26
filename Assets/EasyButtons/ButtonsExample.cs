@@ -5,14 +5,8 @@ public class ButtonsExample : MonoBehaviour
 {
     // Example use of the ButtonAttribute
     [Button]
-    public void TestButton1()
+    public void SayMyName()
     {
-        Debug.Log("Yes! Please do it again :D");
-    }
-
-    [Button]
-    public void TestButton2()
-    {
-        Debug.Log("Ouch! Stop clicking me :(");
+        Debug.Log(name);
     }
 }
