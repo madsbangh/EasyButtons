@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 
@@ -8,14 +9,14 @@ namespace EasyButtons
     /// Custom inspector for Object including derived classes.
     /// </summary>
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(Object), true)]
+    [CustomEditor(typeof(UnityEngine.Object), true)]
     public class ObjectEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             // Loop through all methods with the Button attribute and no arguments
             foreach (var method in target.GetType().GetMethods()
-                .Where(m => System.Attribute.IsDefined(m, typeof(ButtonAttribute), true))
+                .Where(m => Attribute.IsDefined(m, typeof(ButtonAttribute), true))
                 .Where(m => m.GetParameters().Length == 0))
             {
                 // Draw a button which invokes the method
