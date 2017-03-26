@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace EasyButtons
+namespace EasyButtons 
 {
     /// <summary>
     /// Custom inspector for Object including derived classes.
@@ -15,7 +15,7 @@ namespace EasyButtons
         {
             // Loop through all methods with the Button attribute and no arguments
             foreach (var method in target.GetType().GetMethods()
-                .Where(m => m.GetCustomAttributes(typeof(ButtonAttribute), true).Length > 0)
+                .Where(m => System.Attribute.IsDefined(m, typeof(ButtonAttribute), true))
                 .Where(m => m.GetParameters().Length == 0))
             {
                 // Draw a button which invokes the method
