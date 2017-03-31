@@ -5,8 +5,8 @@ namespace EasyButtons
     public enum ShowMode
     {
         AlwaysShow,
-        OnlyShowOnRuntime,
-        NotShowOnRuntime
+        PlayModeOnly,
+        HideInPlayMode
     }
     /// <summary>
     /// Attribute to create a button in the inspector for calling the method it is attached to.

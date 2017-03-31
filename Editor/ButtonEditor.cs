@@ -22,7 +22,7 @@ namespace EasyButtons
             {
 
                 ShowMode show = ((ButtonAttribute)method.GetCustomAttributes(typeof(ButtonAttribute), true)[0]).showMode;
-                if (!(show == ShowMode.NotShowOnRuntime && Application.isPlaying) && !(show == ShowMode.OnlyShowOnRuntime && !Application.isPlaying))
+                if (!(show == ShowMode.HideInPlayMode && Application.isPlaying) && !(show == ShowMode.PlayModeOnly && !Application.isPlaying))
                 {
                     // Draw a button which invokes the method
                     if (GUILayout.Button(ObjectNames.NicifyVariableName(method.Name)))
