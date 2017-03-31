@@ -10,18 +10,18 @@ public class ButtonsExample : MonoBehaviour
         Debug.Log(name);
     }
 
-    // Example use of the ButtonAttribute that is not shown on runtime
+    // Example use of the ButtonAttribute that is not shown in play mode
     [Button(ShowMode.HideInPlayMode)]
     public void SayHelloEditor()
     {
-        Debug.Log("Hello only On Editor");
+        Debug.Log("Hello from edit mode");
     }
 
-    // Example use of the ButtonAttribute that is only shown on runtime
+    // Example use of the ButtonAttribute that is only shown in play mode
     [Button(ShowMode.PlayModeOnly)]
     public void SayHelloInRuntime()
     {
-        Debug.Log("Hello only in runtime");
+        Debug.Log("Hello from play mode");
     }
 
 }
