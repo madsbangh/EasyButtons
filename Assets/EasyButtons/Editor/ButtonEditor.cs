@@ -14,7 +14,7 @@ namespace EasyButtons
     {
         public override void OnInspectorGUI()
         {
-         
+
             // Loop through all methods with the Button attribute and no arguments
             foreach (var method in target.GetType().GetMethods()
                 .Where(m => Attribute.IsDefined(m, typeof(ButtonAttribute), true))
@@ -34,8 +34,8 @@ namespace EasyButtons
                     }
                 }
             }
-			
-			   // Draw the rest of the inspector as usual
+
+            // Draw the rest of the inspector as usual
             DrawDefaultInspector();
         }
     }
