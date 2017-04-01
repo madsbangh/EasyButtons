@@ -2,11 +2,11 @@
 
 namespace EasyButtons
 {
-    public enum ShowMode
+    public enum ButtonMode
     {
-        AlwaysShow,
-        PlayModeOnly,
-        HideInPlayMode
+        AlwaysEnabled,
+        EnabledInPlayMode,
+        DisabledInPlayMode
     }
     /// <summary>
     /// Attribute to create a button in the inspector for calling the method it is attached to.
@@ -22,10 +22,10 @@ namespace EasyButtons
     [AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public sealed class ButtonAttribute : Attribute
     {
-        public ShowMode showMode;
-        public ButtonAttribute(ShowMode showMode = ShowMode.AlwaysShow)
+        public ButtonMode mode;
+        public ButtonAttribute(ButtonMode mode = ButtonMode.AlwaysEnabled)
         {
-            this.showMode = showMode;
+            this.mode = mode;
         }
     }
 }

@@ -10,13 +10,13 @@ public class ScriptableObjectExample : ScriptableObject
         Debug.Log("Hello");
     }
 
-    [Button(ShowMode.HideInPlayMode)]
+    [Button(ButtonMode.DisabledInPlayMode)]
     public void SayHelloEditor()
     {
         Debug.Log("Hello from edit mode");
     }
 
-    [Button(ShowMode.PlayModeOnly)]
+    [Button(ButtonMode.EnabledInPlayMode)]
     public void SayHelloPlayMode()
     {
         Debug.Log("Hello from play mode");

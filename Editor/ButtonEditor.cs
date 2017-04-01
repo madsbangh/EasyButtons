@@ -17,13 +17,17 @@ namespace EasyButtons
 
             // Loop through all methods with the Button attribute and no arguments
             foreach (var method in target.GetType().GetMethods()
-                .Where(m => Attribute.IsDefined(m, typeof(ButtonAttribute), true))
                 .Where(m => m.GetParameters().Length == 0))
             {
+                // Get the ButtonAttribute on the method (if any)
+                var ba = (ButtonAttribute)Attribute.GetCustomAttribute(method, typeof(ButtonAttribute));
 
-                ShowMode show = ((ButtonAttribute)method.GetCustomAttributes(typeof(ButtonAttribute), true)[0]).showMode;
-                if (!(show == ShowMode.HideInPlayMode && Application.isPlaying) && !(show == ShowMode.PlayModeOnly && !Application.isPlaying))
+                if (ba != null)
                 {
+                    // Determine whether the button should be enabled based on its mode
+                    GUI.enabled = ba.mode == ButtonMode.AlwaysEnabled
+                        || (EditorApplication.isPlaying ? ba.mode == ButtonMode.EnabledInPlayMode : ba.mode == ButtonMode.DisabledInPlayMode);
+
                     // Draw a button which invokes the method
                     if (GUILayout.Button(ObjectNames.NicifyVariableName(method.Name)))
                     {
@@ -32,6 +36,8 @@ namespace EasyButtons
                             method.Invoke(target, null);
                         }
                     }
+
+                    GUI.enabled = true;
                 }
             }
 
