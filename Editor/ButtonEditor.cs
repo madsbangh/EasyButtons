@@ -15,7 +15,7 @@ namespace EasyButtons
         public override void OnInspectorGUI()
         {
 
-            // Loop through all methods with the Button attribute and no arguments
+            // Loop through all methods with no parameters
             foreach (var method in target.GetType().GetMethods()
                 .Where(m => m.GetParameters().Length == 0))
             {
