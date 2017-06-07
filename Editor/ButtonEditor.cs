@@ -31,9 +31,9 @@ namespace EasyButtons
                     // Draw a button which invokes the method
                     if (GUILayout.Button(ObjectNames.NicifyVariableName(method.Name)))
                     {
-                        foreach (var target in targets)
+                        foreach (var t in targets)
                         {
-                            method.Invoke(target, null);
+                            method.Invoke(t, null);
                         }
                     }
 
