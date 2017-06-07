@@ -2,7 +2,7 @@
 
 namespace EasyButtons
 {
-    [CreateAssetMenu(fileName = "Example.asset", menuName = "New Example ScriptableObject")]
+    [CreateAssetMenu(fileName = "ScriptableObjectExample.asset", menuName = "EasyButtons/ScriptableObjectExample")]
     public class ScriptableObjectExample : ScriptableObject
     {
         [Button]
