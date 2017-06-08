@@ -1,24 +1,26 @@
 ﻿using UnityEngine;
-using EasyButtons;
 
-[CreateAssetMenu(fileName = "Example.asset", menuName = "New Example ScriptableObject")]
-public class ScriptableObjectExample : ScriptableObject
+namespace EasyButtons
 {
-    [Button]
-    public void SayHello()
+    [CreateAssetMenu(fileName = "ScriptableObjectExample.asset", menuName = "EasyButtons/ScriptableObjectExample")]
+    public class ScriptableObjectExample : ScriptableObject
     {
-        Debug.Log("Hello");
-    }
+        [Button]
+        public void SayHello()
+        {
+            Debug.Log("Hello");
+        }
 
-    [Button(ButtonMode.DisabledInPlayMode)]
-    public void SayHelloEditor()
-    {
-        Debug.Log("Hello from edit mode");
-    }
+        [Button(ButtonMode.DisabledInPlayMode)]
+        public void SayHelloEditor()
+        {
+            Debug.Log("Hello from edit mode");
+        }
 
-    [Button(ButtonMode.EnabledInPlayMode)]
-    public void SayHelloPlayMode()
-    {
-        Debug.Log("Hello from play mode");
+        [Button(ButtonMode.EnabledInPlayMode)]
+        public void SayHelloPlayMode()
+        {
+            Debug.Log("Hello from play mode");
+        }
     }
 }
