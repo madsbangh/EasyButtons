@@ -11,3 +11,6 @@ These tiny scripts add the ability to quickly show a button in the inspector for
    ![Button in the inspector](/Images/inspector.png)
 
    ![Result](/Images/console.png)
+
+# Notes
+- As mentioned in Issue #4 custom editors don't play well with EasyButtons. As a workaround you can Inherit from ObjectEditor instead of Editor, or manually draw the button.
