@@ -24,5 +24,19 @@ namespace EasyButtons
         {
             Debug.Log("Hello from play mode");
         }
+
+        // Example use of the ButtonAttribute with custom name
+        [Button("Special Name")]
+        private void TestButtonName()
+        {
+            Debug.Log("Hello from special name button");
+        }
+
+        // Example use of the ButtonAttribute with custom name and button mode
+        [Button("Special Name Editor Only", ButtonMode.DisabledInPlayMode)]
+        private void TestButtonNameEditorOnly()
+        {
+            Debug.Log("Hello from special name button for editor only");
+        }
     }
 }

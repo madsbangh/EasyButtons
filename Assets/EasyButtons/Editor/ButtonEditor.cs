@@ -31,7 +31,8 @@ namespace EasyButtons
                         || (EditorApplication.isPlaying ? ba.Mode == ButtonMode.EnabledInPlayMode : ba.Mode == ButtonMode.DisabledInPlayMode);
 
                     // Draw a button which invokes the method
-                    if (GUILayout.Button(ObjectNames.NicifyVariableName(method.Name)))
+                    var buttonName = String.IsNullOrEmpty(ba.Name) ? ObjectNames.NicifyVariableName(method.Name) : ba.Name;
+                    if (GUILayout.Button(buttonName))
                     {
                         foreach (var t in targets)
                         {
