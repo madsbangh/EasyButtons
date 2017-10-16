@@ -22,7 +22,10 @@ namespace EasyButtons
     [AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public sealed class ButtonAttribute : Attribute
     {
-        public ButtonMode mode;
+        private ButtonMode mode = ButtonMode.AlwaysEnabled;
+
+        public ButtonMode Mode { get { return mode; } }
+
         public ButtonAttribute(ButtonMode mode = ButtonMode.AlwaysEnabled)
         {
             this.mode = mode;

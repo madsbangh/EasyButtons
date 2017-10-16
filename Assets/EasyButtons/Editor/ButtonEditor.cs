@@ -27,8 +27,8 @@ namespace EasyButtons
                 if (ba != null)
                 {
                     // Determine whether the button should be enabled based on its mode
-                    GUI.enabled = ba.mode == ButtonMode.AlwaysEnabled
-                        || (EditorApplication.isPlaying ? ba.mode == ButtonMode.EnabledInPlayMode : ba.mode == ButtonMode.DisabledInPlayMode);
+                    GUI.enabled = ba.Mode == ButtonMode.AlwaysEnabled
+                        || (EditorApplication.isPlaying ? ba.Mode == ButtonMode.EnabledInPlayMode : ba.Mode == ButtonMode.DisabledInPlayMode);
 
                     // Draw a button which invokes the method
                     if (GUILayout.Button(ObjectNames.NicifyVariableName(method.Name)))
