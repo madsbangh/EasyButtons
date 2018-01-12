@@ -38,5 +38,12 @@ namespace EasyButtons
         {
             Debug.Log("Hello from special name button for editor only");
         }
+
+        // Example use of the ButtonAttribute with static method
+        [Button]
+        private static void TestStaticMethod()
+        {
+            Debug.Log("Hello from static method");
+        }
     }
 }

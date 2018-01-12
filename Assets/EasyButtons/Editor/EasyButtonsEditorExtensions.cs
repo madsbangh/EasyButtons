@@ -12,7 +12,7 @@ namespace EasyButtons
         {
             // Loop through all methods with no parameters
             var methods = editor.target.GetType()
-                .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(m => m.GetParameters().Length == 0);
             foreach (var method in methods)
             {
