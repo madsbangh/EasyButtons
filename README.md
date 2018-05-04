@@ -3,7 +3,7 @@ These tiny scripts add the ability to quickly show a button in the inspector for
 
 ## How to use
 1. Clone the repo or download the latest release
-2. Add the EasyButtons folder to your Unity project
+2. Add the EasyButtons folder to your Unity project or import the .unitypackage
 3. Add the Button attribute to a method
 
    ![Code example](/Images/example.png)
