@@ -26,7 +26,7 @@ namespace EasyButtons
         }
 
         // Example use of the ButtonAttribute with custom name
-        [Button("Special Name")]
+        [Button("Special Name", ButtonSpacing.Before)]
         private void TestButtonName()
         {
             Debug.Log("Hello from special name button");
@@ -38,12 +38,24 @@ namespace EasyButtons
         {
             Debug.Log("Hello from special name button for editor only");
         }
-
+        
         // Example use of the ButtonAttribute with static method
         [Button]
         private static void TestStaticMethod()
         {
             Debug.Log("Hello from static method");
+        }
+        
+        // Example use of the ButtonAttribute with ButtonSpacing, and mix two spacing together.
+        [Button("Space Before and After", ButtonSpacing.Before | ButtonSpacing.After)]
+        private void TestButtonSpaceBoth() {
+            Debug.Log("Hello from a button surround by spaces");
+        }
+        
+        // Placeholder to show the last button have space after it.
+        [Button("Say Hello Space")]
+        private void TestButtonEndSpace() {
+            Debug.Log("Hello I am here to show some spacing.");
         }
     }
 }
