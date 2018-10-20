@@ -53,7 +53,7 @@ namespace EasyButtons
         }
         
         // Placeholder to show the last button have space after it.
-        [Button("Say Hello Space")]
+        [Button("Another Button")]
         private void TestButtonEndSpace() {
             Debug.Log("Hello I am here to show some spacing.");
         }
