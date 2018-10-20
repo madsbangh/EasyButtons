@@ -24,9 +24,10 @@ ExportedObj/
 *.pdb
 
 
-# Unity3D generated meta files
+# Unity generated
 /ProjectSettings/
 /UnityPackageManager/
+/Packages/
 *.meta
 
 # Unity3D Generated File On Crash Reports
