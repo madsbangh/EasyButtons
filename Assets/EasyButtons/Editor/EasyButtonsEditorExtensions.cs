@@ -22,11 +22,12 @@ namespace EasyButtons
                 if (ba != null)
                 {
                     // Determine whether the button should be enabled based on its mode
+                    var wasEnabled = GUI.enabled;
                     GUI.enabled = ba.Mode == ButtonMode.AlwaysEnabled
                         || (EditorApplication.isPlaying ? ba.Mode == ButtonMode.EnabledInPlayMode : ba.Mode == ButtonMode.DisabledInPlayMode);
 
 
-                    if (((int)ba.Spacing & 1) != 0) GUILayout.Space(10);
+                    if (((int)ba.Spacing & (int)ButtonSpacing.Before) != 0) GUILayout.Space(10);
                     
                     // Draw a button which invokes the method
                     var buttonName = String.IsNullOrEmpty(ba.Name) ? ObjectNames.NicifyVariableName(method.Name) : ba.Name;
@@ -38,9 +39,9 @@ namespace EasyButtons
                         }
                     }
 
-                    if (((int)ba.Spacing & 2) != 0) GUILayout.Space(10);
+                    if (((int)ba.Spacing & (int)ButtonSpacing.After) != 0) GUILayout.Space(10);
                     
-                    GUI.enabled = true;
+                    GUI.enabled = wasEnabled;
                 }
             }
         }
