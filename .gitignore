@@ -28,7 +28,6 @@ ExportedObj/
 /ProjectSettings/
 /UnityPackageManager/
 /Packages/
-*.meta
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
