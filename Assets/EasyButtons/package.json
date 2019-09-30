@@ -1,0 +1,7 @@
+{
+    "name": "com.madsbangh.easybuttons",
+    "version": "1.0.0",
+    "displayName": "Easy Buttons",
+    "description": "Add buttons to your inspector in Unity super easily with this simple attribute.",
+    "unity": "2017.1"
+}
