@@ -21,7 +21,7 @@ Update dependencies to have `com.madsbangh.easybuttons` package:
 ```json
 {
   "dependencies": {
-    "com.madsbangh.easybuttons": "https://github.com/madsbangh/EasyButtons.git"
+    "com.madsbangh.easybuttons": "https://github.com/madsbangh/EasyButtons.git#upm"
   }
 }
 ```
