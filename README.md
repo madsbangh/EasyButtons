@@ -21,10 +21,12 @@ Alternatively add the code directly to te project:
 
 1. Clone the repo or download the latest release
 2. Add the EasyButtons folder to your Unity project or import the .unitypackage
-3. Add the Button attribute to a method
+
+### Use the Button attribute
+1. Add the Button attribute to a method
 
    ![Code example](/Images/example.png)
-4. You should now see a button at the top of the component with the same name as the method
+2. You should now see a button at the top of the component with the same name as the method
 
    ![Button in the inspector](/Images/inspector.png)
 
