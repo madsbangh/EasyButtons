@@ -3,12 +3,12 @@
 namespace EasyButtons
 {
     [CustomEditor(typeof(CustomEditorButtonsExample))]
-    public class CustomEditorButtonsExampleEditor : Editor
+    public class CustomEditorButtonsExampleEditor : ObjectEditor
     {
         public override void OnInspectorGUI()
         {
-            this.DrawEasyButtons();
             base.OnInspectorGUI();
+            DrawEasyButtons();
         }
     }
 }
