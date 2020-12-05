@@ -48,9 +48,7 @@ namespace EasyButtons
                 GUILayout.Space(10);
 
             // Draw a button which invokes the method
-            var buttonName = string.IsNullOrEmpty(buttonAttribute.Name)
-                ? ObjectNames.NicifyVariableName(method.Name)
-                : buttonAttribute.Name;
+            var buttonName = GetButtonName(method, buttonAttribute);
 
             if (GUILayout.Button(buttonName))
             {
@@ -68,7 +66,15 @@ namespace EasyButtons
 
         private static void DrawButtonWithParams(Editor editor, MethodInfo method, ButtonAttribute buttonAttribute)
         {
+            var buttonName = GetButtonName(method, buttonAttribute);
+            GUILayout.Button(buttonName);
+        }
 
+        private static string GetButtonName(MethodInfo method, ButtonAttribute buttonAttribute)
+        {
+            return string.IsNullOrEmpty(buttonAttribute.Name)
+                ? ObjectNames.NicifyVariableName(method.Name)
+                : buttonAttribute.Name;
         }
     }
 }
