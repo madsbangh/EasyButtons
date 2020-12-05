@@ -49,7 +49,7 @@ namespace EasyButtons
 
             // Draw a button which invokes the method
             var buttonName = string.IsNullOrEmpty(ba.Name) ? ObjectNames.NicifyVariableName(method.Name) : ba.Name;
-            
+
             if (GUILayout.Button(buttonName))
             {
                 foreach (var t in editor.targets)
