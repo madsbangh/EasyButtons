@@ -65,3 +65,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Rider auto-generated files
+**/.idea/
+
