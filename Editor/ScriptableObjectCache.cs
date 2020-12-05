@@ -13,13 +13,11 @@
 
         private static readonly AssemblyBuilder AssemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(
             new AssemblyName(AssemblyName),
-            AssemblyBuilderAccess.RunAndSave);
+            AssemblyBuilderAccess.RunAndCollect);
 
-        private static readonly ModuleBuilder ModuleBuilder = AssemblyBuilder.DefineDynamicModule(AssemblyName, AssemblyFileName);
+        private static readonly ModuleBuilder ModuleBuilder = AssemblyBuilder.DefineDynamicModule(AssemblyName, $"{AssemblyName}.dll");
 
         private static readonly Dictionary<string, Type> ClassDict = new Dictionary<string, Type>();
-
-        private static string AssemblyFileName => $"{AssemblyName}.dll";
 
         public static Type GetClass(string fieldName, Type fieldType)
         {
@@ -33,12 +31,11 @@
             return classType;
         }
 
-        public static Type CreateClass(string className, string fieldName, Type fieldType)
+        private static Type CreateClass(string className, string fieldName, Type fieldType)
         {
             TypeBuilder typeBuilder = ModuleBuilder.DefineType(className, TypeAttributes.Public, typeof(ScriptableObject));
             typeBuilder.DefineField(fieldName, fieldType, FieldAttributes.Public);
             Type type = typeBuilder.CreateType();
-            AssemblyBuilder.Save(AssemblyFileName);
             return type;
         }
 
