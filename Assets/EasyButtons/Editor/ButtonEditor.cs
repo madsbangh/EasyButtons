@@ -2,19 +2,21 @@
 
 namespace EasyButtons
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using UnityEngine;
+    using Object = UnityEngine.Object;
 
     /// <summary>
     /// Custom inspector for Object including derived classes.
     /// </summary>
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(UnityEngine.Object), true)]
+    [CustomEditor(typeof(Object), true)]
     public class ObjectEditor : Editor
     {
-        private List<ButtonInfo> _buttons = new List<ButtonInfo>();
+        private readonly List<ButtonInfo> _buttons = new List<ButtonInfo>();
 
         protected virtual void OnEnable()
         {
@@ -63,20 +65,25 @@ namespace EasyButtons
         {
             const float spacingHeight = 10f;
 
-            // Determine whether the button should be enabled based on its mode
-            var wasEnabled = GUI.enabled;
-            GUI.enabled = button.Enabled;
+            DrawWithEnabledGUI(button.Enabled, () =>
+            {
+                if (button.Spacing.HasFlag(ButtonSpacing.Before))
+                    GUILayout.Space(spacingHeight);
 
-            if (button.Spacing.HasFlag(ButtonSpacing.Before))
-                GUILayout.Space(spacingHeight);
+                if (GUILayout.Button(button.Name))
+                    button.Invoke(targets, null);
 
-            if (GUILayout.Button(button.Name))
-                button.Invoke(targets, null);
+                if (button.Spacing.HasFlag(ButtonSpacing.After))
+                    GUILayout.Space(spacingHeight);
+            });
+        }
 
-            if (button.Spacing.HasFlag(ButtonSpacing.After))
-                GUILayout.Space(spacingHeight);
-
-            GUI.enabled = wasEnabled;
+        private static void DrawWithEnabledGUI(bool enabled, Action drawStuff)
+        {
+            bool previousValue = GUI.enabled;
+            GUI.enabled = enabled;
+            drawStuff();
+            GUI.enabled = previousValue;
         }
 
         private void DrawButtonWithParams(ButtonInfo button)
