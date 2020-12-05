@@ -21,13 +21,15 @@ namespace EasyButtons
                 if (buttonAttribute == null)
                     return;
 
-                if (method.GetParameters().Length == 0)
+                var parameters = method.GetParameters();
+
+                if (parameters.Length == 0)
                 {
                     DrawButtonWithoutParams(editor, method, buttonAttribute);
                 }
                 else
                 {
-                    DrawButtonWithParams(editor, method, buttonAttribute);
+                    DrawButtonWithParams(editor, method, buttonAttribute, parameters);
                 }
             }
         }
@@ -64,10 +66,16 @@ namespace EasyButtons
             GUI.enabled = wasEnabled;
         }
 
-        private static void DrawButtonWithParams(Editor editor, MethodInfo method, ButtonAttribute buttonAttribute)
+        private static void DrawButtonWithParams(Editor editor, MethodInfo method, ButtonAttribute buttonAttribute, ParameterInfo[] parameters)
         {
             var buttonName = GetButtonName(method, buttonAttribute);
             GUILayout.Button(buttonName);
+
+            foreach (ParameterInfo parameter in parameters)
+            {
+                string niceName = ObjectNames.NicifyVariableName(parameter.Name);
+                GUILayout.Label(niceName);
+            }
         }
 
         private static string GetButtonName(MethodInfo method, ButtonAttribute buttonAttribute)
