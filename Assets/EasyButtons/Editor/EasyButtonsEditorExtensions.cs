@@ -44,7 +44,7 @@ namespace EasyButtons
             GUI.enabled = buttonAttribute.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode;
 
 
-            if (((int)buttonAttribute.Spacing & (int)ButtonSpacing.Before) != 0)
+            if (buttonAttribute.Spacing.HasFlag(ButtonSpacing.Before))
                 GUILayout.Space(10);
 
             // Draw a button which invokes the method
@@ -60,7 +60,7 @@ namespace EasyButtons
                 }
             }
 
-            if (((int)buttonAttribute.Spacing & (int)ButtonSpacing.After) != 0)
+            if (buttonAttribute.Spacing.HasFlag(ButtonSpacing.After))
                 GUILayout.Space(10);
 
             GUI.enabled = wasEnabled;
