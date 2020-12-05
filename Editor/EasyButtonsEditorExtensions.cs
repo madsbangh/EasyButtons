@@ -31,34 +31,37 @@ namespace EasyButtons
             // Get the ButtonAttribute on the method (if any)
             var ba = (ButtonAttribute)Attribute.GetCustomAttribute(method, typeof(ButtonAttribute));
 
-            if (ba != null)
+            if (ba == null)
+                return;
+
+            // Determine whether the button should be enabled based on its mode
+            var wasEnabled = GUI.enabled;
+
+            bool inAppropriateMode = EditorApplication.isPlaying
+                ? ba.Mode == ButtonMode.EnabledInPlayMode
+                : ba.Mode == ButtonMode.DisabledInPlayMode;
+
+            GUI.enabled = ba.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode;
+
+
+            if (((int)ba.Spacing & (int)ButtonSpacing.Before) != 0)
+                GUILayout.Space(10);
+
+            // Draw a button which invokes the method
+            var buttonName = string.IsNullOrEmpty(ba.Name) ? ObjectNames.NicifyVariableName(method.Name) : ba.Name;
+            
+            if (GUILayout.Button(buttonName))
             {
-                // Determine whether the button should be enabled based on its mode
-                var wasEnabled = GUI.enabled;
-
-                bool inAppropriateMode = EditorApplication.isPlaying
-                    ? ba.Mode == ButtonMode.EnabledInPlayMode
-                    : ba.Mode == ButtonMode.DisabledInPlayMode;
-
-                GUI.enabled = ba.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode;
-
-
-                if (((int)ba.Spacing & (int)ButtonSpacing.Before) != 0) GUILayout.Space(10);
-
-                // Draw a button which invokes the method
-                var buttonName = string.IsNullOrEmpty(ba.Name) ? ObjectNames.NicifyVariableName(method.Name) : ba.Name;
-                if (GUILayout.Button(buttonName))
+                foreach (var t in editor.targets)
                 {
-                    foreach (var t in editor.targets)
-                    {
-                        method.Invoke(t, null);
-                    }
+                    method.Invoke(t, null);
                 }
-
-                if (((int)ba.Spacing & (int)ButtonSpacing.After) != 0) GUILayout.Space(10);
-
-                GUI.enabled = wasEnabled;
             }
+
+            if (((int)ba.Spacing & (int)ButtonSpacing.After) != 0)
+                GUILayout.Space(10);
+
+            GUI.enabled = wasEnabled;
         }
 
         private static void DrawButtonWithParams(Editor editor, MethodInfo method)
