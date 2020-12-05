@@ -14,6 +14,7 @@ namespace EasyButtons
             var methods = editor.target.GetType()
                 .GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .Where(m => m.GetParameters().Length == 0);
+
             foreach (var method in methods)
             {
                 // Get the ButtonAttribute on the method (if any)
@@ -23,14 +24,18 @@ namespace EasyButtons
                 {
                     // Determine whether the button should be enabled based on its mode
                     var wasEnabled = GUI.enabled;
-                    GUI.enabled = ba.Mode == ButtonMode.AlwaysEnabled
-                        || (EditorApplication.isPlaying ? ba.Mode == ButtonMode.EnabledInPlayMode : ba.Mode == ButtonMode.DisabledInPlayMode);
+
+                    bool inAppropriateMode = EditorApplication.isPlaying
+                        ? ba.Mode == ButtonMode.EnabledInPlayMode
+                        : ba.Mode == ButtonMode.DisabledInPlayMode;
+
+                    GUI.enabled = ba.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode;
 
 
                     if (((int)ba.Spacing & (int)ButtonSpacing.Before) != 0) GUILayout.Space(10);
-                    
+
                     // Draw a button which invokes the method
-                    var buttonName = String.IsNullOrEmpty(ba.Name) ? ObjectNames.NicifyVariableName(method.Name) : ba.Name;
+                    var buttonName = string.IsNullOrEmpty(ba.Name) ? ObjectNames.NicifyVariableName(method.Name) : ba.Name;
                     if (GUILayout.Button(buttonName))
                     {
                         foreach (var t in editor.targets)
@@ -40,7 +45,7 @@ namespace EasyButtons
                     }
 
                     if (((int)ba.Spacing & (int)ButtonSpacing.After) != 0) GUILayout.Space(10);
-                    
+
                     GUI.enabled = wasEnabled;
                 }
             }
