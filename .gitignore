@@ -68,3 +68,5 @@ crashlytics-build.properties
 # Rider auto-generated files
 **/.idea/
 
+# Editor settings
+UserSettings/EditorUserSettings.asset
