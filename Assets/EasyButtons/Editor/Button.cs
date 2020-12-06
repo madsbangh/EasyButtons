@@ -8,7 +8,7 @@
     using UnityEngine;
     using Object = UnityEngine.Object;
 
-    internal readonly struct Button
+    internal class Button
     {
         private readonly string _name;
         private readonly ButtonSpacing _spacing;
@@ -16,6 +16,8 @@
         private readonly bool _hasParams;
         private readonly MethodInfo _method;
         private readonly ParamInfo[] _parameters;
+
+        private bool _expanded;
 
         public Button(MethodInfo method, ButtonAttribute buttonAttribute)
         {
@@ -39,22 +41,22 @@
 
         public void Draw(IEnumerable<Object> targets)
         {
-            bool previousValue = GUI.enabled;
-            GUI.enabled = _enabled;
-
-            DrawButtonWithSpacing(targets);
-
-            foreach (ParamInfo param in _parameters)
+            DrawWithEnabledGUI(_enabled, () =>
             {
-                param.Draw();
-            }
-
-            GUI.enabled = previousValue;
+                if (_hasParams)
+                {
+                    DrawFoldout();
+                }
+                else
+                {
+                    DrawButtonWithSpacing(targets);
+                }
+            });
         }
 
         private void Invoke(IEnumerable<Object> objects)
         {
-            var paramValues = _hasParams ? _parameters.Select(param => param.GetValue()).ToArray() : null;
+            var paramValues = _hasParams ? _parameters.Select(param => param.Value).ToArray() : null;
 
             foreach (Object obj in objects)
             {
@@ -76,6 +78,40 @@
                 GUILayout.Space(spacingHeight);
         }
 
+        private void DrawFoldout()
+        {
+            _expanded = DrawInFoldout(_expanded, _name, () =>
+            {
+                foreach (ParamInfo param in _parameters)
+                {
+                    param.Draw();
+                }
+            });
+        }
+
+        private static void DrawWithEnabledGUI(bool enabled, Action drawStuff)
+        {
+            bool previousValue = GUI.enabled;
+            GUI.enabled = enabled;
+            drawStuff();
+            GUI.enabled = previousValue;
+        }
+
+        private static bool DrawInFoldout(bool expanded, string name, Action drawStuff)
+        {
+            expanded = EditorGUILayout.BeginFoldoutHeaderGroup(expanded, name);
+
+            if (expanded)
+            {
+                EditorGUI.indentLevel++;
+                drawStuff();
+                EditorGUI.indentLevel--;
+            }
+
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            return expanded;
+        }
+
         private readonly struct ParamInfo
         {
             private readonly FieldInfo _fieldInfo;
@@ -90,7 +126,7 @@
                 _editor = Editor.CreateEditor(_scriptableObj, typeof(NoScriptFieldEditor));
             }
 
-            public object GetValue() => _fieldInfo.GetValue(_scriptableObj);
+            public object Value => _fieldInfo.GetValue(_scriptableObj);
 
             public void Draw()
             {
