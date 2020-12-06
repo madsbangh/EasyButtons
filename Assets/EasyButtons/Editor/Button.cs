@@ -99,7 +99,12 @@
 
         private static bool DrawInFoldout(bool expanded, string name, Action drawStuff)
         {
-            expanded = EditorGUILayout.BeginFoldoutHeaderGroup(expanded, name);
+            var foldoutRect = GUILayoutUtility.GetRect(new GUIContent(name), EditorStyles.foldoutHeader);
+
+            var buttonRect = new Rect(foldoutRect.xMax - 50f, foldoutRect.y, 50f, foldoutRect.height);
+            var actualFoldoutRect = new Rect(foldoutRect.position, new Vector2(foldoutRect.width - 50f, foldoutRect.height));
+
+            expanded = EditorGUI.BeginFoldoutHeaderGroup(actualFoldoutRect, expanded, name);
 
             if (expanded)
             {
@@ -109,6 +114,10 @@
             }
 
             EditorGUILayout.EndFoldoutHeaderGroup();
+
+            if (GUI.Button(buttonRect, "Invoke"))
+                Debug.Log("invoked");
+
             return expanded;
         }
 
