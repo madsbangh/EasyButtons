@@ -70,3 +70,6 @@ crashlytics-build.properties
 
 # Editor settings
 UserSettings/EditorUserSettings.asset
+
+# ErrorProne.NET Rolsyn Analyzers
+Assets/ErrorProne*
