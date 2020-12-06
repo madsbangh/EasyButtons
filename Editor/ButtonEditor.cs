@@ -36,110 +36,106 @@ namespace EasyButtons
 
         public override void OnInspectorGUI()
         {
-            // Draw the rest of the inspector as usual
             DrawDefaultInspector();
             DrawEasyButtons();
         }
 
         protected void DrawEasyButtons()
         {
-            int buttonsLength = _buttons.Count;
-
-            // Iterate without foreach to avoid losing performance on structs boxing.
-            for (int i = 0; i < buttonsLength; i++)
+            foreach (ButtonInfo button in _buttons)
             {
-                var button = _buttons[i];
-
-                if (button.HasParams)
-                {
-                    DrawButtonWithParams(button);
-                }
-                else
-                {
-                    DrawButtonWithoutParams(button);
-                }
-            }
-        }
-
-        private void DrawButtonWithoutParams(ButtonInfo button)
-        {
-            const float spacingHeight = 10f;
-
-            DrawWithEnabledGUI(button.Enabled, () =>
-            {
-                if (button.Spacing.HasFlag(ButtonSpacing.Before))
-                    GUILayout.Space(spacingHeight);
-
-                if (GUILayout.Button(button.Name))
-                    button.Invoke(targets, null);
-
-                if (button.Spacing.HasFlag(ButtonSpacing.After))
-                    GUILayout.Space(spacingHeight);
-            });
-        }
-
-        private static void DrawWithEnabledGUI(bool enabled, Action drawStuff)
-        {
-            bool previousValue = GUI.enabled;
-            GUI.enabled = enabled;
-            drawStuff();
-            GUI.enabled = previousValue;
-        }
-
-        private void DrawButtonWithParams(ButtonInfo button)
-        {
-            GUILayout.Button(button.Name);
-
-            foreach (Editor paramEditor in button.Parameters)
-            {
-                paramEditor.OnInspectorGUI();
+                button.Draw(targets);
             }
         }
 
         private readonly struct ButtonInfo
         {
-            public readonly string Name;
-            public readonly ButtonSpacing Spacing;
-            public readonly bool Enabled;
-            public readonly bool HasParams;
-            public readonly Editor[] Parameters;
+            private readonly string _name;
+            private readonly ButtonSpacing _spacing;
+            private readonly bool _enabled;
+            private readonly bool _hasParams;
             private readonly MethodInfo _method;
+            private readonly ParamInfo[] _parameters;
 
             public ButtonInfo(MethodInfo method, ButtonAttribute buttonAttribute)
             {
-                Name = string.IsNullOrEmpty(buttonAttribute.Name)
+                _name = string.IsNullOrEmpty(buttonAttribute.Name)
                     ? ObjectNames.NicifyVariableName(method.Name)
                     : buttonAttribute.Name;
 
-                Spacing = buttonAttribute.Spacing;
+                _spacing = buttonAttribute.Spacing;
 
                 bool inAppropriateMode = EditorApplication.isPlaying
                     ? buttonAttribute.Mode == ButtonMode.EnabledInPlayMode
                     : buttonAttribute.Mode == ButtonMode.DisabledInPlayMode;
 
-                Enabled = buttonAttribute.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode;
+                _enabled = buttonAttribute.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode;
 
                 var parameters = method.GetParameters();
-                HasParams = parameters.Length != 0;
-                Parameters = parameters.Select(CreateEditor).ToArray();
-
+                _hasParams = parameters.Length != 0;
+                _parameters = parameters.Select(parameter => new ParamInfo(parameter)).ToArray();
                 _method = method;
             }
 
-            public void Invoke(IEnumerable<Object> objects, params object[] parameters)
+            private void Invoke(IEnumerable<Object> objects)
             {
+                var paramValues = _hasParams ? _parameters.Select(param => param.GetValue()).ToArray() : null;
+
                 foreach (Object obj in objects)
                 {
-                    _method.Invoke(obj, parameters);
+                    _method.Invoke(obj, paramValues);
                 }
             }
 
-            private static Editor CreateEditor(ParameterInfo parameter)
+            public void Draw(IEnumerable<Object> targets)
             {
-                var generatedType = ScriptableObjectCache.GetClass(parameter.Name, parameter.ParameterType);
-                var scriptableObject = ScriptableObject.CreateInstance(generatedType);
-                var editor = Editor.CreateEditor(scriptableObject, typeof(NoScriptFieldEditor));
-                return editor;
+                bool previousValue = GUI.enabled;
+                GUI.enabled = _enabled;
+
+                DrawButtonWithSpacing(targets);
+
+                foreach (ParamInfo param in _parameters)
+                {
+                    param.Draw();
+                }
+
+                GUI.enabled = previousValue;
+            }
+
+            private void DrawButtonWithSpacing(IEnumerable<Object> targets)
+            {
+                const float spacingHeight = 10f;
+
+                if (_spacing.HasFlag(ButtonSpacing.Before))
+                    GUILayout.Space(spacingHeight);
+
+                if (GUILayout.Button(_name))
+                    Invoke(targets);
+
+                if (_spacing.HasFlag(ButtonSpacing.After))
+                    GUILayout.Space(spacingHeight);
+            }
+
+            private readonly struct ParamInfo
+            {
+                private readonly FieldInfo _fieldInfo;
+                private readonly ScriptableObject _scriptableObj;
+                private readonly Editor _editor;
+
+                public ParamInfo(ParameterInfo paramInfo)
+                {
+                    Type generatedType = ScriptableObjectCache.GetClass(paramInfo.Name, paramInfo.ParameterType);
+                    _scriptableObj = ScriptableObject.CreateInstance(generatedType);
+                    _fieldInfo = generatedType.GetField(paramInfo.Name);
+                    _editor = Editor.CreateEditor(_scriptableObj, typeof(NoScriptFieldEditor));
+                }
+
+                public object GetValue() => _fieldInfo.GetValue(_scriptableObj);
+
+                public void Draw()
+                {
+                    _editor.OnInspectorGUI();
+                }
             }
         }
     }
