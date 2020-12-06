@@ -2,6 +2,8 @@
 
 namespace EasyButtons
 {
+    using Editor;
+
     [CustomEditor(typeof(CustomEditorButtonsExample))]
     public class CustomEditorButtonsExampleEditor : ObjectEditor
     {
