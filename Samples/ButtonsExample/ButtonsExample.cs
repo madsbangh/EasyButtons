@@ -58,5 +58,12 @@
         {
             Debug.Log($"Your message #{number}: \"{message}\"");
         }
+
+        // Example use of the Expanded option.
+        [Button("Expanded Button Example", Expanded = true)]
+        private void TestExpandedButton(string message)
+        {
+            Debug.Log(message);
+        }
     }
 }
