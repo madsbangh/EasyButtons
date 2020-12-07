@@ -11,7 +11,7 @@
 
         protected override void DrawInternal(IEnumerable<Object> targets)
         {
-            if ( ! GUILayout.Button(Name))
+            if ( ! GUILayout.Button(DisplayName))
                 return;
 
             foreach (Object obj in targets)

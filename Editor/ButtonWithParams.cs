@@ -23,9 +23,9 @@
 
         protected override void DrawInternal(IEnumerable<Object> targets)
         {
-            (Rect foldoutRect, Rect buttonRect) = DrawUtility.GetFoldoutAndButtonRects(Name);
+            (Rect foldoutRect, Rect buttonRect) = DrawUtility.GetFoldoutAndButtonRects(DisplayName);
 
-            _expanded = DrawUtility.DrawInFoldout(foldoutRect, _expanded, Name, () =>
+            _expanded = DrawUtility.DrawInFoldout(foldoutRect, _expanded, DisplayName, () =>
             {
                 foreach (Parameter param in _parameters)
                 {
