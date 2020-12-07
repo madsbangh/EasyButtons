@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-
-namespace EasyButtons
+﻿namespace EasyButtons
 {
+    using UnityEngine;
+
     public class CustomEditorButtonsExample : MonoBehaviour
     {
         [Button("Custom Editor Example")]

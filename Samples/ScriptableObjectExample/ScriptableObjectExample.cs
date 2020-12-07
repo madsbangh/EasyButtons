@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-
-namespace EasyButtons
+﻿namespace EasyButtons
 {
+    using UnityEngine;
+
     [CreateAssetMenu(fileName = "ScriptableObjectExample.asset", menuName = "EasyButtons/ScriptableObjectExample")]
     public class ScriptableObjectExample : ScriptableObject
     {

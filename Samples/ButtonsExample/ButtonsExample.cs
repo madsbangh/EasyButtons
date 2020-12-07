@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-
-namespace EasyButtons
+﻿namespace EasyButtons
 {
+    using UnityEngine;
+
     public class ButtonsExample : MonoBehaviour
     {
         // Example use of the ButtonAttribute
@@ -38,24 +38,25 @@ namespace EasyButtons
         {
             Debug.Log("Hello from special name button for editor only");
         }
-        
+
         // Example use of the ButtonAttribute with static method
         [Button]
         private static void TestStaticMethod()
         {
             Debug.Log("Hello from static method");
         }
-        
+
         // Example use of the ButtonAttribute with ButtonSpacing, and mix two spacing together.
         [Button("Space Before and After", ButtonSpacing.Before | ButtonSpacing.After)]
         private void TestButtonSpaceBoth() {
             Debug.Log("Hello from a button surround by spaces");
         }
-        
-        // Placeholder to show the last button have space after it.
-        [Button("Another Button")]
-        private void TestButtonEndSpace() {
-            Debug.Log("Hello I am here to show some spacing.");
+
+        // Example use of a button with parameters.
+        [Button("Button With Parameters")]
+        private void TestButtonWithParams(string message, int number)
+        {
+            Debug.Log($"Your message #{number}: \"{message}\"");
         }
     }
 }

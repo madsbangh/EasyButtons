@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace EasyButtons
+﻿namespace EasyButtons
 {
+    using System;
+
     public enum ButtonMode
     {
         AlwaysEnabled,
@@ -10,24 +10,24 @@ namespace EasyButtons
     }
 
     [Flags]
-    public enum ButtonSpacing 
+    public enum ButtonSpacing
     {
         None = 0,
         Before = 1,
         After = 2
     }
-    
+
     /// <summary>
     /// Attribute to create a button in the inspector for calling the method it is attached to.
     /// The method must have no arguments.
     /// </summary>
-    /// <example>
+    /// <example><code>
     /// [Button]
     /// public void MyMethod()
     /// {
     ///     Debug.Log("Clicked!");
     /// }
-    /// </example>
+    /// </code></example>
     [AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public sealed class ButtonAttribute : Attribute
     {
@@ -52,25 +52,25 @@ namespace EasyButtons
         {
             this.mode = mode;
         }
-        
-        public ButtonAttribute(ButtonSpacing spacing) 
+
+        public ButtonAttribute(ButtonSpacing spacing)
         {
             this.spacing = spacing;
         }
-        
+
         public ButtonAttribute(string name, ButtonMode mode)
         {
             this.name = name;
             this.mode = mode;
         }
 
-        public ButtonAttribute(string name, ButtonSpacing spacing) 
+        public ButtonAttribute(string name, ButtonSpacing spacing)
         {
             this.name = name;
             this.spacing = spacing;
         }
 
-        public ButtonAttribute(string name, ButtonMode mode, ButtonSpacing spacing) 
+        public ButtonAttribute(string name, ButtonMode mode, ButtonSpacing spacing)
         {
             this.name = name;
             this.mode = mode;
@@ -78,4 +78,3 @@ namespace EasyButtons
         }
     }
 }
-
