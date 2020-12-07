@@ -5,21 +5,14 @@ These tiny scripts add the ability to quickly show a button in the inspector for
 ### Install via Git URL
 Project supports Unity Package Manager. To install the project as a Git package do the following:
 
-1. Close the Unity project and open the `Packages/manifest.json` file.
-2. Update dependencies to have `com.madsbangh.easybuttons` package:
-   ```json
-   {
-     "dependencies": {
-       "com.madsbangh.easybuttons": "https://github.com/madsbangh/EasyButtons.git#upm"
-     }
-   }
-   ```
-3. Open Unity project.
+1. In Unity, open **Window** -> **Package Manager**.
+2. Press the **+** button, choose "**Add package from git URL...**"
+3. Enter "https://github.com/madsbangh/EasyButtons.git#upm" and press **Add**.
 
 ### Add to project Assets
 Alternatively you can add the code directly to the project:
 
-1. Clone the repo or download the latest release
+1. Clone the repo or download the latest release.
 2. Add the EasyButtons folder to your Unity project or import the .unitypackage
 
 ### Use the Button attribute
