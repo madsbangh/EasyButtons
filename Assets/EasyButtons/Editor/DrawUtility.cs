@@ -8,12 +8,6 @@
     {
         private static readonly GUIContent _tempContent = new GUIContent();
 
-        private static GUIContent TempContent(string text)
-        {
-            _tempContent.text = text;
-            return _tempContent;
-        }
-
         public static void DrawWithSpacing(bool before, bool after, Action drawStuff)
         {
             const float spacingHeight = 10f;
@@ -70,6 +64,12 @@
                 foldoutWithoutButton.height);
 
             return (foldoutRect, buttonRect);
+        }
+
+        private static GUIContent TempContent(string text)
+        {
+            _tempContent.text = text;
+            return _tempContent;
         }
     }
 }
