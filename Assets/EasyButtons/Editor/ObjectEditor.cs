@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Reflection;
-    using Buttons;
     using UnityEditor;
     using Object = UnityEngine.Object;
 
@@ -13,7 +12,7 @@
     [CustomEditor(typeof(Object), true)]
     public class ObjectEditor : Editor
     {
-        private readonly List<Button> _buttons = new List<Button>();
+        protected readonly List<Button> Buttons = new List<Button>();
 
         protected virtual void OnEnable()
         {
@@ -27,7 +26,7 @@
                 if (buttonAttribute == null)
                     continue;
 
-                _buttons.Add(Button.Create(method, buttonAttribute));
+                Buttons.Add(Button.Create(method, buttonAttribute));
             }
         }
 
@@ -42,7 +41,7 @@
         /// </summary>
         protected void DrawEasyButtons()
         {
-            foreach (Button button in _buttons)
+            foreach (Button button in Buttons)
             {
                 button.Draw(targets);
             }

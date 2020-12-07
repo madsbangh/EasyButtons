@@ -1,4 +1,4 @@
-﻿namespace EasyButtons
+﻿namespace EasyButtons.Example
 {
     using UnityEngine;
 
@@ -8,6 +8,12 @@
         private void SayHello()
         {
             Debug.Log("Hello from custom editor");
+        }
+
+        [Button]
+        private void SecondButton()
+        {
+            Debug.Log("Second button of the custom editor.");
         }
     }
 }

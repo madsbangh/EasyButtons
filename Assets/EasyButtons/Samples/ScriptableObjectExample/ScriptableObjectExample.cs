@@ -1,4 +1,4 @@
-﻿namespace EasyButtons
+﻿namespace EasyButtons.Example
 {
     using UnityEngine;
 
