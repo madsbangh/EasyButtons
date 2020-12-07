@@ -1,7 +1,6 @@
 # Easy buttons for the Unity default inspector
 These tiny scripts add the ability to quickly show a button in the inspector for any zero-argument method.
 
-## How to use
 ### Install via Git URL
 Project supports Unity Package Manager. To install the project as a Git package do the following:
 
@@ -10,12 +9,12 @@ Project supports Unity Package Manager. To install the project as a Git package 
 3. Enter "https://github.com/madsbangh/EasyButtons.git#upm" and press **Add**.
 
 ### Add to project Assets
-Alternatively you can add the code directly to the project:
+Alternatively, you can add the code directly to the project:
 
 1. Clone the repo or download the latest release.
 2. Add the EasyButtons folder to your Unity project or import the .unitypackage
 
-### Use the Button attribute
+## How To Use
 1. Add the Button attribute to a method.
 
    ```csharp
@@ -59,7 +58,7 @@ Alternatively you can add the code directly to the project:
 
    ![Button with parameters](/Images/parameters.png)
 
-### Attribute Options
+## Attribute Options
 
 The `Button` attribute has different options that allow customizing the button look.
 
@@ -81,7 +80,7 @@ The `Button` attribute has different options that allow customizing the button l
 
 ***Expanded*** - whether to expand the parameters foldout by default. It only works with buttons that have parameters.
 
-### Custom Editors
+## Custom Editors
 
 If you want to show buttons in a custom editor, you need to derive it from the `ObjectEditor` class.
 
