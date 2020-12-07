@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Reflection;
+    using JetBrains.Annotations;
     using UnityEditor;
     using Utils;
     using Object = UnityEngine.Object;
@@ -12,10 +13,10 @@
     public abstract class Button
     {
         /// <summary> Display name of the button. </summary>
-        public readonly string Name;
+        [PublicAPI] public readonly string Name;
 
         /// <summary> MethodInfo object the button is attached to. </summary>
-        public readonly MethodInfo Method;
+        [PublicAPI] public readonly MethodInfo Method;
 
         private readonly ButtonSpacing _spacing;
         private readonly bool _enabled;
