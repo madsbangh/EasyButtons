@@ -20,4 +20,21 @@ public class TestBehaviour : MonoBehaviour
     {
         Debug.Log($"message: {message}, num: {num}");
     }
+
+    [Button]
+    public void NonSerializedParam(NonSerializedClass testClass)
+    {
+
+    }
+
+    [Button]
+    public void NonSerializedParamAndString(NonSerializedClass testClass, string test)
+    {
+
+    }
+}
+
+public class NonSerializedClass
+{
+    public string Field;
 }
