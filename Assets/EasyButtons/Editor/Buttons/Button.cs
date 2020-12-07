@@ -1,8 +1,9 @@
-﻿namespace EasyButtons.Editor
+﻿namespace EasyButtons.Editor.Buttons
 {
     using System.Collections.Generic;
     using System.Reflection;
     using UnityEditor;
+    using Utils;
     using Object = UnityEngine.Object;
 
     internal abstract class Button

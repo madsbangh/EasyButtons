@@ -2,11 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Reflection;
+    using Buttons;
     using UnityEditor;
     using Object = UnityEngine.Object;
 
     /// <summary>
-    /// Custom inspector for Object including derived classes.
+    /// Custom inspector for <see cref="UnityEngine.Object"/> including derived classes.
     /// </summary>
     [CanEditMultipleObjects]
     [CustomEditor(typeof(Object), true)]
@@ -36,6 +37,9 @@
             DrawEasyButtons();
         }
 
+        /// <summary>
+        /// Draws all the methods marked with <see cref="ButtonAttribute"/>.
+        /// </summary>
         protected void DrawEasyButtons()
         {
             foreach (Button button in _buttons)

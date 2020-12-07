@@ -1,4 +1,4 @@
-﻿namespace EasyButtons.Editor
+﻿namespace EasyButtons.Editor.Buttons
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,7 @@
     using System.Reflection;
     using UnityEditor;
     using UnityEngine;
+    using Utils;
     using Object = UnityEngine.Object;
 
     internal class ButtonWithParams : Button
