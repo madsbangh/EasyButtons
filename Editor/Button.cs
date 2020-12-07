@@ -1,4 +1,4 @@
-﻿namespace EasyButtons.Editor.Buttons
+﻿namespace EasyButtons.Editor
 {
     using System.Collections.Generic;
     using System.Reflection;
@@ -6,10 +6,10 @@
     using Utils;
     using Object = UnityEngine.Object;
 
-    internal abstract class Button
+    public abstract class Button
     {
-        protected readonly string Name;
-        protected readonly MethodInfo Method;
+        public readonly string Name;
+        public readonly MethodInfo Method;
 
         private readonly ButtonSpacing _spacing;
         private readonly bool _enabled;
@@ -31,7 +31,18 @@
             _enabled = buttonAttribute.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode;
         }
 
-        public static Button Create(MethodInfo method, ButtonAttribute buttonAttribute)
+        public void Draw(IEnumerable<Object> targets)
+        {
+            DrawUtility.DrawWithEnabledGUI(_enabled, () =>
+            {
+                DrawUtility.DrawWithSpacing(_spacing.HasFlag(ButtonSpacing.Before), _spacing.HasFlag(ButtonSpacing.After), () =>
+                {
+                    DrawInternal(targets);
+                });
+            });
+        }
+
+        internal static Button Create(MethodInfo method, ButtonAttribute buttonAttribute)
         {
             var parameters = method.GetParameters();
 
@@ -43,17 +54,6 @@
             {
                 return new ButtonWithParams(method, buttonAttribute, parameters);
             }
-        }
-
-        public void Draw(IEnumerable<Object> targets)
-        {
-            DrawUtility.DrawWithEnabledGUI(_enabled, () =>
-            {
-                DrawUtility.DrawWithSpacing(_spacing.HasFlag(ButtonSpacing.Before), _spacing.HasFlag(ButtonSpacing.After), () =>
-                {
-                    DrawInternal(targets);
-                });
-            });
         }
 
         protected abstract void DrawInternal(IEnumerable<Object> targets);
