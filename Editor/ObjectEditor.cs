@@ -12,6 +12,9 @@
     [CustomEditor(typeof(Object), true)]
     public class ObjectEditor : Editor
     {
+        /// <summary>
+        /// A list of all the buttons available in the target class.
+        /// </summary>
         protected readonly List<Button> Buttons = new List<Button>();
 
         protected virtual void OnEnable()
