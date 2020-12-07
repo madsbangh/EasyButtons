@@ -1,5 +1,5 @@
 # Easy buttons for the Unity default inspector
-These tiny scripts add the ability to quickly show a button in the inspector for any zero-argument method.
+These tiny scripts add the ability to quickly show a button in the inspector for any method.
 
 ### Install via Git URL
 Project supports Unity Package Manager. To install the project as a Git package do the following:
