@@ -11,12 +11,12 @@
 
         protected override void DrawInternal(IEnumerable<Object> targets)
         {
-            if (GUILayout.Button(Name))
+            if ( ! GUILayout.Button(Name))
+                return;
+
+            foreach (Object obj in targets)
             {
-                foreach (Object obj in targets)
-                {
-                    Method.Invoke(obj, null);
-                }
+                Method.Invoke(obj, null);
             }
         }
     }
