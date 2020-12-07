@@ -1,4 +1,4 @@
-﻿namespace EasyButtons.Editor
+﻿namespace EasyButtons.Editor.Utils
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,7 @@
     using NUnit.Framework;
     using UnityEngine;
 
-    public static class ScriptableObjectCache
+    internal static class ScriptableObjectCache
     {
         private const string AssemblyName = "DynamicAssembly";
 

@@ -2,7 +2,7 @@
 {
     using UnityEditor;
 
-    public class NoScriptFieldEditor : Editor
+    internal class NoScriptFieldEditor : Editor
     {
         public override void OnInspectorGUI()
         {

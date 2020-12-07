@@ -1,4 +1,4 @@
-﻿namespace EasyButtons.Editor
+﻿namespace EasyButtons.Editor.Buttons
 {
     using System.Collections.Generic;
     using System.Reflection;

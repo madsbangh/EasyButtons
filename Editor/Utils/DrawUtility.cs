@@ -1,9 +1,12 @@
-﻿namespace EasyButtons.Editor
+﻿namespace EasyButtons.Editor.Utils
 {
     using System;
     using UnityEditor;
     using UnityEngine;
 
+    /// <summary>
+    /// A set of methods that simplify drawing of button controls.
+    /// </summary>
     internal static class DrawUtility
     {
         private static readonly GUIContent _tempContent = new GUIContent();
