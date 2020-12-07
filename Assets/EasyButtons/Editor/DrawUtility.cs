@@ -6,6 +6,14 @@
 
     internal static class DrawUtility
     {
+        private static readonly GUIContent _tempContent = new GUIContent();
+
+        private static GUIContent TempContent(string text)
+        {
+            _tempContent.text = text;
+            return _tempContent;
+        }
+
         public static void DrawWithSpacing(bool before, bool after, Action drawStuff)
         {
             const float spacingHeight = 10f;
@@ -47,7 +55,7 @@
         {
             const float buttonWidth = 60f;
 
-            Rect foldoutWithoutButton = GUILayoutUtility.GetRect(new GUIContent(header), EditorStyles.foldoutHeader); // TODO: replace new GUIContent
+            Rect foldoutWithoutButton = GUILayoutUtility.GetRect(TempContent(header), EditorStyles.foldoutHeader);
 
             var foldoutRect = new Rect(
                 foldoutWithoutButton.x,
