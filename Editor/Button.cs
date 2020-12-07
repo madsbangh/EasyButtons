@@ -41,15 +41,15 @@
 
         public void Draw(IEnumerable<Object> targets)
         {
-            DrawWithEnabledGUI(_enabled, () =>
+            DrawUtility.DrawWithEnabledGUI(_enabled, () =>
             {
-                DrawWithSpacing(_spacing.HasFlag(ButtonSpacing.Before), _spacing.HasFlag(ButtonSpacing.After), () =>
+                DrawUtility.DrawWithSpacing(_spacing.HasFlag(ButtonSpacing.Before), _spacing.HasFlag(ButtonSpacing.After), () =>
                 {
                     if (_hasParams)
                     {
-                        (Rect foldoutRect, Rect buttonRect) = GetFoldoutAndButtonRects(_name);
+                        (Rect foldoutRect, Rect buttonRect) = DrawUtility.GetFoldoutAndButtonRects(_name);
 
-                        _expanded = DrawInFoldout(foldoutRect, _expanded, _name, () =>
+                        _expanded = DrawUtility.DrawInFoldout(foldoutRect, _expanded, _name, () =>
                         {
                             foreach (ParamInfo param in _parameters)
                             {
@@ -69,43 +69,6 @@
             });
         }
 
-        private static bool DrawInFoldout(Rect foldoutRect, bool expanded, string header, Action drawStuff)
-        {
-            expanded = EditorGUI.BeginFoldoutHeaderGroup(foldoutRect, expanded, header);
-
-            if (expanded)
-            {
-                EditorGUI.indentLevel++;
-                drawStuff();
-                EditorGUI.indentLevel--;
-            }
-
-            EditorGUILayout.EndFoldoutHeaderGroup();
-
-            return expanded;
-        }
-
-        private static (Rect, Rect) GetFoldoutAndButtonRects(string header)
-        {
-            const float buttonWidth = 60f;
-
-            var foldoutWithoutButton = GUILayoutUtility.GetRect(new GUIContent(header), EditorStyles.foldoutHeader); // TODO: replace new GUIContent
-
-            var foldoutRect = new Rect(
-                foldoutWithoutButton.x,
-                foldoutWithoutButton.y,
-                foldoutWithoutButton.width - buttonWidth,
-                foldoutWithoutButton.height);
-
-            var buttonRect = new Rect(
-                foldoutWithoutButton.xMax - buttonWidth,
-                foldoutWithoutButton.y,
-                buttonWidth,
-                foldoutWithoutButton.height);
-
-            return (foldoutRect, buttonRect);
-        }
-
         private void Invoke(IEnumerable<Object> objects)
         {
             var paramValues = _hasParams ? _parameters.Select(param => param.Value).ToArray() : null;
@@ -114,27 +77,6 @@
             {
                 _method.Invoke(obj, paramValues);
             }
-        }
-
-        private static void DrawWithSpacing(bool before, bool after, Action drawStuff)
-        {
-            const float spacingHeight = 10f;
-
-            if (before)
-                GUILayout.Space(spacingHeight);
-
-            drawStuff();
-
-            if (after)
-                GUILayout.Space(spacingHeight);
-        }
-
-        private static void DrawWithEnabledGUI(bool enabled, Action drawStuff)
-        {
-            bool previousValue = GUI.enabled;
-            GUI.enabled = enabled;
-            drawStuff();
-            GUI.enabled = previousValue;
         }
 
         private readonly struct ParamInfo
