@@ -6,9 +6,15 @@
     using Utils;
     using Object = UnityEngine.Object;
 
+    /// <summary>
+    /// A class that holds information about a button and can draw it in the inspector.
+    /// </summary>
     public abstract class Button
     {
+        /// <summary> Display name of the button. </summary>
         public readonly string Name;
+
+        /// <summary> MethodInfo object the button is attached to. </summary>
         public readonly MethodInfo Method;
 
         private readonly ButtonSpacing _spacing;
