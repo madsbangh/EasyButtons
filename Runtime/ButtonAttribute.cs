@@ -31,13 +31,13 @@
     [AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public sealed class ButtonAttribute : Attribute
     {
-        private readonly string name = null;
-        private readonly ButtonMode mode = ButtonMode.AlwaysEnabled;
-        private readonly ButtonSpacing spacing = ButtonSpacing.None;
+        public readonly string Name;
 
-        public string Name => name;
-        public ButtonMode Mode => mode;
-        public ButtonSpacing Spacing => spacing;
+        public ButtonMode Mode { get; set; } = ButtonMode.AlwaysEnabled;
+
+        public ButtonSpacing Spacing { get; set; } = ButtonSpacing.None;
+
+        public bool Expanded { get; set; }
 
         public ButtonAttribute()
         {
@@ -45,36 +45,7 @@
 
         public ButtonAttribute(string name)
         {
-            this.name = name;
-        }
-
-        public ButtonAttribute(ButtonMode mode)
-        {
-            this.mode = mode;
-        }
-
-        public ButtonAttribute(ButtonSpacing spacing)
-        {
-            this.spacing = spacing;
-        }
-
-        public ButtonAttribute(string name, ButtonMode mode)
-        {
-            this.name = name;
-            this.mode = mode;
-        }
-
-        public ButtonAttribute(string name, ButtonSpacing spacing)
-        {
-            this.name = name;
-            this.spacing = spacing;
-        }
-
-        public ButtonAttribute(string name, ButtonMode mode, ButtonSpacing spacing)
-        {
-            this.name = name;
-            this.mode = mode;
-            this.spacing = spacing;
+            Name = name;
         }
     }
 }

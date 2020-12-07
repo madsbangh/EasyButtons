@@ -18,6 +18,7 @@
             : base(method, buttonAttribute)
         {
             _parameters = parameters.Select(paramInfo => new Parameter(paramInfo)).ToArray();
+            _expanded = buttonAttribute.Expanded;
         }
 
         protected override void DrawInternal(IEnumerable<Object> targets)
