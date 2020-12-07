@@ -43,15 +43,67 @@
         {
             DrawWithEnabledGUI(_enabled, () =>
             {
-                if (_hasParams)
+                DrawWithSpacing(_spacing.HasFlag(ButtonSpacing.Before), _spacing.HasFlag(ButtonSpacing.After), () =>
                 {
-                    DrawFoldout();
-                }
-                else
-                {
-                    DrawButtonWithSpacing(targets);
-                }
+                    if (_hasParams)
+                    {
+                        (Rect foldoutRect, Rect buttonRect) = GetFoldoutAndButtonRects(_name);
+
+                        _expanded = DrawInFoldout(foldoutRect, _expanded, _name, () =>
+                        {
+                            foreach (ParamInfo param in _parameters)
+                            {
+                                param.Draw();
+                            }
+                        });
+
+                        if (GUI.Button(buttonRect, "Invoke"))
+                            Invoke(targets);
+                    }
+                    else
+                    {
+                        if (GUILayout.Button(_name))
+                            Invoke(targets);
+                    }
+                });
             });
+        }
+
+        private static bool DrawInFoldout(Rect foldoutRect, bool expanded, string header, Action drawStuff)
+        {
+            expanded = EditorGUI.BeginFoldoutHeaderGroup(foldoutRect, expanded, header);
+
+            if (expanded)
+            {
+                EditorGUI.indentLevel++;
+                drawStuff();
+                EditorGUI.indentLevel--;
+            }
+
+            EditorGUILayout.EndFoldoutHeaderGroup();
+
+            return expanded;
+        }
+
+        private static (Rect, Rect) GetFoldoutAndButtonRects(string header)
+        {
+            const float buttonWidth = 60f;
+
+            var foldoutWithoutButton = GUILayoutUtility.GetRect(new GUIContent(header), EditorStyles.foldoutHeader); // TODO: replace new GUIContent
+
+            var foldoutRect = new Rect(
+                foldoutWithoutButton.x,
+                foldoutWithoutButton.y,
+                foldoutWithoutButton.width - buttonWidth,
+                foldoutWithoutButton.height);
+
+            var buttonRect = new Rect(
+                foldoutWithoutButton.xMax - buttonWidth,
+                foldoutWithoutButton.y,
+                buttonWidth,
+                foldoutWithoutButton.height);
+
+            return (foldoutRect, buttonRect);
         }
 
         private void Invoke(IEnumerable<Object> objects)
@@ -64,29 +116,17 @@
             }
         }
 
-        private void DrawButtonWithSpacing(IEnumerable<Object> targets)
+        private static void DrawWithSpacing(bool before, bool after, Action drawStuff)
         {
             const float spacingHeight = 10f;
 
-            if (_spacing.HasFlag(ButtonSpacing.Before))
+            if (before)
                 GUILayout.Space(spacingHeight);
 
-            if (GUILayout.Button(_name))
-                Invoke(targets);
+            drawStuff();
 
-            if (_spacing.HasFlag(ButtonSpacing.After))
+            if (after)
                 GUILayout.Space(spacingHeight);
-        }
-
-        private void DrawFoldout()
-        {
-            _expanded = DrawInFoldout(_expanded, _name, () =>
-            {
-                foreach (ParamInfo param in _parameters)
-                {
-                    param.Draw();
-                }
-            });
         }
 
         private static void DrawWithEnabledGUI(bool enabled, Action drawStuff)
@@ -95,30 +135,6 @@
             GUI.enabled = enabled;
             drawStuff();
             GUI.enabled = previousValue;
-        }
-
-        private static bool DrawInFoldout(bool expanded, string name, Action drawStuff)
-        {
-            var foldoutRect = GUILayoutUtility.GetRect(new GUIContent(name), EditorStyles.foldoutHeader);
-
-            var buttonRect = new Rect(foldoutRect.xMax - 50f, foldoutRect.y, 50f, foldoutRect.height);
-            var actualFoldoutRect = new Rect(foldoutRect.position, new Vector2(foldoutRect.width - 50f, foldoutRect.height));
-
-            expanded = EditorGUI.BeginFoldoutHeaderGroup(actualFoldoutRect, expanded, name);
-
-            if (expanded)
-            {
-                EditorGUI.indentLevel++;
-                drawStuff();
-                EditorGUI.indentLevel--;
-            }
-
-            EditorGUILayout.EndFoldoutHeaderGroup();
-
-            if (GUI.Button(buttonRect, "Invoke"))
-                Debug.Log("invoked");
-
-            return expanded;
         }
 
         private readonly struct ParamInfo
