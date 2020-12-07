@@ -26,7 +26,7 @@
                 if (buttonAttribute == null)
                     continue;
 
-                _buttons.Add(new Button(method, buttonAttribute));
+                _buttons.Add(Button.Create(method, buttonAttribute));
             }
         }
 
