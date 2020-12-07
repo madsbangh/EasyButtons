@@ -13,7 +13,7 @@
     public abstract class Button
     {
         /// <summary> Display name of the button. </summary>
-        [PublicAPI] public readonly string Name;
+        [PublicAPI] public readonly string DisplayName;
 
         /// <summary> MethodInfo object the button is attached to. </summary>
         [PublicAPI] public readonly MethodInfo Method;
@@ -23,7 +23,7 @@
 
         protected Button(MethodInfo method, ButtonAttribute buttonAttribute)
         {
-            Name = string.IsNullOrEmpty(buttonAttribute.Name)
+            DisplayName = string.IsNullOrEmpty(buttonAttribute.Name)
                 ? ObjectNames.NicifyVariableName(method.Name)
                 : buttonAttribute.Name;
 

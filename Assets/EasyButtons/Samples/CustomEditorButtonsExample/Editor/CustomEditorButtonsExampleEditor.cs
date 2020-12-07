@@ -23,7 +23,7 @@
             DrawEasyButtons();
 
             // As well as a specific button in the wanted place.
-            Buttons.First(button => button.Name == "Custom Editor Example").Draw(targets);
+            Buttons.First(button => button.DisplayName == "Custom Editor Example").Draw(targets);
         }
     }
 }
