@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Reflection;
+    using JetBrains.Annotations;
     using UnityEditor;
     using Object = UnityEngine.Object;
 
@@ -15,7 +16,7 @@
         /// <summary>
         /// A list of all the buttons available in the target class.
         /// </summary>
-        protected readonly List<Button> Buttons = new List<Button>();
+        [PublicAPI] protected readonly List<Button> Buttons = new List<Button>();
 
         protected virtual void OnEnable()
         {
