@@ -7,9 +7,14 @@
         public override void OnInspectorGUI()
         {
             DrawPropertiesExcluding(serializedObject, "m_Script");
+        }
 
+        public void ApplyModifiedProperties()
+        {
             if (serializedObject.hasModifiedProperties)
-                serializedObject.ApplyModifiedProperties();
+            {
+                serializedObject.ApplyModifiedPropertiesWithoutUndo();
+            }
         }
     }
 }

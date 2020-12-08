@@ -48,21 +48,35 @@
         {
             private readonly FieldInfo _fieldInfo;
             private readonly ScriptableObject _scriptableObj;
-            private readonly Editor _editor;
+            private readonly NoScriptFieldEditor _editor;
 
             public Parameter(ParameterInfo paramInfo)
             {
                 Type generatedType = ScriptableObjectCache.GetClass(paramInfo.Name, paramInfo.ParameterType);
                 _scriptableObj = ScriptableObject.CreateInstance(generatedType);
                 _fieldInfo = generatedType.GetField(paramInfo.Name);
-                _editor = Editor.CreateEditor(_scriptableObj, typeof(NoScriptFieldEditor));
+                _editor = CreateEditor<NoScriptFieldEditor>(_scriptableObj);
             }
 
-            public object Value => _fieldInfo.GetValue(_scriptableObj);
+            public object Value
+            {
+                get
+                {
+                    // Every time modified properties are applied, the "No script asset for ..." warning appears.
+                    // Saving only once before invoking the button minimizes those warnings.
+                    _editor.ApplyModifiedProperties();
+                    return _fieldInfo.GetValue(_scriptableObj);
+                }
+            }
 
             public void Draw()
             {
                 _editor.OnInspectorGUI();
+            }
+
+            private static TEditor CreateEditor<TEditor>(Object obj) where TEditor : Editor
+            {
+                return (TEditor) Editor.CreateEditor(obj, typeof(TEditor));
             }
         }
     }
