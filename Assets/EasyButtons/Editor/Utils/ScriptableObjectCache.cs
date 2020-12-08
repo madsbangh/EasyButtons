@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration.Assemblies;
+    using System.Globalization;
     using System.Reflection;
     using System.Reflection.Emit;
     using NUnit.Framework;
@@ -9,13 +11,18 @@
 
     internal static class ScriptableObjectCache
     {
-        private const string AssemblyName = "DynamicAssembly";
+        private const string AssemblyName = "EasyButtons.DynamicAssembly";
 
         private static readonly AssemblyBuilder AssemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(
-            new AssemblyName(AssemblyName),
-            AssemblyBuilderAccess.RunAndCollect);
+            new AssemblyName(AssemblyName)
+        {
+            CultureInfo = CultureInfo.InvariantCulture,
+            Flags = AssemblyNameFlags.None,
+            ProcessorArchitecture = ProcessorArchitecture.MSIL,
+            VersionCompatibility = AssemblyVersionCompatibility.SameDomain
+        }, AssemblyBuilderAccess.Run);
 
-        private static readonly ModuleBuilder ModuleBuilder = AssemblyBuilder.DefineDynamicModule(AssemblyName, $"{AssemblyName}.dll");
+        private static readonly ModuleBuilder ModuleBuilder = AssemblyBuilder.DefineDynamicModule(AssemblyName, true);
 
         private static readonly Dictionary<string, Type> ClassDict = new Dictionary<string, Type>();
 
@@ -38,7 +45,11 @@
 
         private static Type CreateClass(string className, string fieldName, Type fieldType)
         {
-            TypeBuilder typeBuilder = ModuleBuilder.DefineType(className, TypeAttributes.Public, typeof(ScriptableObject));
+            TypeBuilder typeBuilder = ModuleBuilder.DefineType(
+                $"{AssemblyName}.{className}",
+                TypeAttributes.NotPublic,
+                typeof(ScriptableObject));
+
             typeBuilder.DefineField(fieldName, fieldType, FieldAttributes.Public);
             Type type = typeBuilder.CreateType();
             return type;
