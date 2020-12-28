@@ -11,12 +11,16 @@
     /// </summary>
     [CanEditMultipleObjects]
     [CustomEditor(typeof(Object), true)]
+    // Hides a warning that the class has virtual members but no inheritors.
+    // The class may be inherited by plugin users.
+    [UsedImplicitly]
     public class ObjectEditor : Editor
     {
         /// <summary>
         /// A list of all the buttons available in the target class.
         /// </summary>
-        [PublicAPI] protected readonly List<Button> Buttons = new List<Button>();
+        [PublicAPI("The buttons can be accessed from a custom editor derived from ObjectEditor and be drawn individually")]
+        protected readonly List<Button> Buttons = new List<Button>();
 
         protected virtual void OnEnable()
         {
@@ -43,6 +47,7 @@
         /// <summary>
         /// Draws all the methods marked with <see cref="ButtonAttribute"/>.
         /// </summary>
+        [PublicAPI("The method can be used in custom editors derived from ObjectEditor")]
         protected void DrawEasyButtons()
         {
             foreach (Button button in Buttons)

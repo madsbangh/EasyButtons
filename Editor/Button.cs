@@ -42,10 +42,10 @@
         {
             DrawUtility.DrawWithEnabledGUI(_enabled, () =>
             {
-                DrawUtility.DrawWithSpacing(_spacing.HasFlag(ButtonSpacing.Before), _spacing.HasFlag(ButtonSpacing.After), () =>
-                {
-                    DrawInternal(targets);
-                });
+                DrawUtility.DrawWithSpacing(
+                    _spacing.HasFlag(ButtonSpacing.Before),
+                    _spacing.HasFlag(ButtonSpacing.After),
+                    () => DrawInternal(targets));
             });
         }
 
