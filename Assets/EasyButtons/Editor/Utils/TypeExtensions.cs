@@ -28,7 +28,7 @@
         /// <returns><see langword="true"/> if the type can be serialized by Unity.</returns>
         public static bool IsUnitySerializable(this Type type)
         {
-            bool IsSystemType(Type typeToCheck) => typeToCheck.Namespace != null && typeToCheck.Namespace.StartsWith("System");
+            bool IsSystemType(Type typeToCheck) => typeToCheck.Namespace?.StartsWith("System") == true;
 
             bool IsCustomSerializableType(Type typeToCheck) =>
                 typeToCheck.IsSerializable && typeToCheck.GetSerializedFields().Any() &&

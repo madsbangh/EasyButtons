@@ -74,7 +74,8 @@
                 _editor.OnInspectorGUI();
             }
 
-            private static TEditor CreateEditor<TEditor>(Object obj) where TEditor : Editor
+            private static TEditor CreateEditor<TEditor>(Object obj)
+                where TEditor : Editor
             {
                 return (TEditor) Editor.CreateEditor(obj, typeof(TEditor));
             }

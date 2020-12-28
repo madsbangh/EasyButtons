@@ -48,7 +48,7 @@
             return expanded;
         }
 
-        public static (Rect, Rect) GetFoldoutAndButtonRects(string header)
+        public static (Rect foldoutRect, Rect buttonRect) GetFoldoutAndButtonRects(string header)
         {
             const float buttonWidth = 60f;
 
