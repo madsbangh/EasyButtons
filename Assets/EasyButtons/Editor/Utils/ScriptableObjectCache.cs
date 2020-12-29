@@ -6,8 +6,8 @@
     using System.Globalization;
     using System.Reflection;
     using System.Reflection.Emit;
-    using NUnit.Framework;
     using UnityEngine;
+    using UnityEngine.Assertions;
 
     internal static class ScriptableObjectCache
     {
