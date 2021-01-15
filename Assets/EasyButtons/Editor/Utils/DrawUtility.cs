@@ -11,25 +11,24 @@
     {
         private static readonly GUIContent _tempContent = new GUIContent();
 
-        public static void DrawWithSpacing(bool before, bool after, Action drawStuff)
+        public readonly struct VerticalIndent : IDisposable
         {
-            const float spacingHeight = 10f;
+            private const float SpacingHeight = 10f;
+            private readonly bool _bottom;
 
-            if (before)
-                GUILayout.Space(spacingHeight);
+            public VerticalIndent(bool top, bool bottom)
+            {
+                if (top)
+                    GUILayout.Space(SpacingHeight);
 
-            drawStuff();
+                _bottom = bottom;
+            }
 
-            if (after)
-                GUILayout.Space(spacingHeight);
-        }
-
-        public static void DrawWithEnabledGUI(bool enabled, Action drawStuff)
-        {
-            bool previousValue = GUI.enabled;
-            GUI.enabled = enabled;
-            drawStuff();
-            GUI.enabled = previousValue;
+            public void Dispose()
+            {
+                if (_bottom)
+                    GUILayout.Space(SpacingHeight);
+            }
         }
 
         public static bool DrawInFoldout(Rect foldoutRect, bool expanded, string header, Action drawStuff)
