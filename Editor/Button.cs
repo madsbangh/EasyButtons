@@ -19,7 +19,7 @@
         [PublicAPI] public readonly MethodInfo Method;
 
         private readonly ButtonSpacing _spacing;
-        private readonly bool _enabled;
+        private readonly bool _disabled;
 
         protected Button(MethodInfo method, ButtonAttribute buttonAttribute)
         {
@@ -35,18 +35,20 @@
                 ? buttonAttribute.Mode == ButtonMode.EnabledInPlayMode
                 : buttonAttribute.Mode == ButtonMode.DisabledInPlayMode;
 
-            _enabled = buttonAttribute.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode;
+            _disabled = ! (buttonAttribute.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode);
         }
 
         public void Draw(IEnumerable<Object> targets)
         {
-            DrawUtility.DrawWithEnabledGUI(_enabled, () =>
+            using (new EditorGUI.DisabledScope(_disabled))
             {
-                DrawUtility.DrawWithSpacing(
+                using (new DrawUtility.VerticalIndent(
                     _spacing.HasFlag(ButtonSpacing.Before),
-                    _spacing.HasFlag(ButtonSpacing.After),
-                    () => DrawInternal(targets));
-            });
+                    _spacing.HasFlag(ButtonSpacing.After)))
+                {
+                    DrawInternal(targets);
+                }
+            }
         }
 
         internal static Button Create(MethodInfo method, ButtonAttribute buttonAttribute)
