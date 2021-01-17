@@ -7,7 +7,8 @@
 
     internal class NoScriptFieldEditor : Editor
     {
-        private static readonly MethodInfo RemoveLogEntriesByMode;
+        private static readonly MethodInfo _removeLogEntriesByMode;
+        private static readonly string[] _propertiesToExclude = { "m_Script" };
 
         static NoScriptFieldEditor()
         {
@@ -16,9 +17,9 @@
 
             var editorAssembly = Assembly.GetAssembly(typeof(Editor));
             Type logEntryType = editorAssembly.GetType(logEntryClassName);
-            RemoveLogEntriesByMode = logEntryType.GetMethod(removeLogMethodName, BindingFlags.NonPublic | BindingFlags.Static);
+            _removeLogEntriesByMode = logEntryType.GetMethod(removeLogMethodName, BindingFlags.NonPublic | BindingFlags.Static);
 
-            if (RemoveLogEntriesByMode == null)
+            if (_removeLogEntriesByMode == null)
             {
                 Debug.LogError($"Could not find the {logEntryClassName}.{removeLogMethodName}() method. " +
                                "Please submit an issue and specify your Unity version: https://github.com/madsbangh/EasyButtons/issues/new");
@@ -27,7 +28,7 @@
 
         public override void OnInspectorGUI()
         {
-            DrawPropertiesExcluding(serializedObject, "m_Script");
+            DrawPropertiesExcluding(serializedObject, _propertiesToExclude);
         }
 
         public void ApplyModifiedProperties()
@@ -47,7 +48,7 @@
 
             // The "No Script asset for ..." log has a unique identifier that can be used to remove the warning.
             const int noScriptAssetMode = 262144;
-            RemoveLogEntriesByMode?.Invoke(new object(), new object[] { noScriptAssetMode });
+            _removeLogEntriesByMode?.Invoke(null, new object[] { noScriptAssetMode });
         }
     }
 }
