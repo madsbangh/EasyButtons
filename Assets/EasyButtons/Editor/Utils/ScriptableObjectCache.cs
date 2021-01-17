@@ -13,7 +13,7 @@
     {
         private const string AssemblyName = "EasyButtons.DynamicAssembly";
 
-        private static readonly AssemblyBuilder AssemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(
+        private static readonly AssemblyBuilder _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(
             new AssemblyName(AssemblyName)
         {
             CultureInfo = CultureInfo.InvariantCulture,
@@ -22,15 +22,15 @@
             VersionCompatibility = AssemblyVersionCompatibility.SameDomain
         }, AssemblyBuilderAccess.Run);
 
-        private static readonly ModuleBuilder ModuleBuilder = AssemblyBuilder.DefineDynamicModule(AssemblyName, true);
+        private static readonly ModuleBuilder _moduleBuilder = _assemblyBuilder.DefineDynamicModule(AssemblyName, true);
 
-        private static readonly Dictionary<string, Type> ClassDict = new Dictionary<string, Type>();
+        private static readonly Dictionary<string, Type> _classDict = new Dictionary<string, Type>();
 
         public static Type GetClass(string fieldName, Type fieldType)
         {
             string className = GetClassName(fieldName, fieldType);
 
-            if (ClassDict.TryGetValue(className, out Type classType))
+            if (_classDict.TryGetValue(className, out Type classType))
                 return classType;
 
             if ( ! fieldType.IsUnitySerializable())
@@ -39,13 +39,13 @@
             }
 
             classType = CreateClass(className, fieldName, fieldType);
-            ClassDict[className] = classType;
+            _classDict[className] = classType;
             return classType;
         }
 
         private static Type CreateClass(string className, string fieldName, Type fieldType)
         {
-            TypeBuilder typeBuilder = ModuleBuilder.DefineType(
+            TypeBuilder typeBuilder = _moduleBuilder.DefineType(
                 $"{AssemblyName}.{className}",
                 TypeAttributes.NotPublic,
                 typeof(ScriptableObject));

@@ -38,13 +38,13 @@
             _disabled = ! (buttonAttribute.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode);
         }
 
-        public void Draw(IEnumerable<Object> targets)
+        public void Draw(Object[] targets)
         {
             using (new EditorGUI.DisabledScope(_disabled))
             {
                 using (new DrawUtility.VerticalIndent(
-                    _spacing.HasFlag(ButtonSpacing.Before),
-                    _spacing.HasFlag(ButtonSpacing.After)))
+                    _spacing.ContainsFlag(ButtonSpacing.Before),
+                    _spacing.ContainsFlag(ButtonSpacing.After)))
                 {
                     DrawInternal(targets);
                 }
@@ -65,6 +65,6 @@
             }
         }
 
-        protected abstract void DrawInternal(IEnumerable<Object> targets);
+        protected abstract void DrawInternal(Object[] targets);
     }
 }

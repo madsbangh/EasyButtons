@@ -1,7 +1,6 @@
 ﻿namespace EasyButtons.Editor
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using UnityEditor;
@@ -21,7 +20,7 @@
             _expanded = buttonAttribute.Expanded;
         }
 
-        protected override void DrawInternal(IEnumerable<Object> targets)
+        protected override void DrawInternal(Object[] targets)
         {
             (Rect foldoutRect, Rect buttonRect) = DrawUtility.GetFoldoutAndButtonRects(DisplayName);
 
