@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-
-namespace EasyButtons
+﻿namespace EasyButtons.Example
 {
+    using UnityEngine;
+
     [CreateAssetMenu(fileName = "ScriptableObjectExample.asset", menuName = "EasyButtons/ScriptableObjectExample")]
     public class ScriptableObjectExample : ScriptableObject
     {
@@ -11,13 +11,13 @@ namespace EasyButtons
             Debug.Log("Hello");
         }
 
-        [Button(ButtonMode.DisabledInPlayMode)]
+        [Button(Mode = ButtonMode.DisabledInPlayMode)]
         public void SayHelloEditor()
         {
             Debug.Log("Hello from edit mode");
         }
 
-        [Button(ButtonMode.EnabledInPlayMode)]
+        [Button(Mode = ButtonMode.EnabledInPlayMode)]
         public void SayHelloPlayMode()
         {
             Debug.Log("Hello from play mode");
