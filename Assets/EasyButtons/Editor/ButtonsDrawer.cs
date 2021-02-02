@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Reflection;
     using JetBrains.Annotations;
-    using UnityEngine;
 
     /// <summary>
     /// Helper class that can be used in custom Editors to draw methods marked with the <see cref="ButtonAttribute"/> as buttons.
@@ -22,7 +21,7 @@
         /// performance of the custom editor.
         /// </summary>
         /// <param name="target">Editor's target.</param>
-        public ButtonsDrawer(Object target)
+        public ButtonsDrawer(object target)
         {
             const BindingFlags flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
             var methods = target.GetType().GetMethods(flags);

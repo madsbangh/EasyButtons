@@ -1,11 +1,9 @@
 ﻿namespace EasyButtons.Editor
 {
-    using System.Collections.Generic;
     using System.Reflection;
     using JetBrains.Annotations;
     using UnityEditor;
     using Utils;
-    using Object = UnityEngine.Object;
 
     /// <summary>
     /// A class that holds information about a button and can draw it in the inspector.
