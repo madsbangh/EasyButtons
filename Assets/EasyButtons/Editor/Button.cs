@@ -38,7 +38,7 @@
             _disabled = ! (buttonAttribute.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode);
         }
 
-        public void Draw(Object[] targets)
+        public void Draw(object[] targets)
         {
             using (new EditorGUI.DisabledScope(_disabled))
             {
@@ -65,6 +65,6 @@
             }
         }
 
-        protected abstract void DrawInternal(Object[] targets);
+        protected abstract void DrawInternal(object[] targets);
     }
 }

@@ -20,7 +20,7 @@
             _expanded = buttonAttribute.Expanded;
         }
 
-        protected override void DrawInternal(Object[] targets)
+        protected override void DrawInternal(object[] targets)
         {
             (Rect foldoutRect, Rect buttonRect) = DrawUtility.GetFoldoutAndButtonRects(DisplayName);
 
@@ -37,7 +37,7 @@
 
             var paramValues = _parameters.Select(param => param.Value).ToArray();
 
-            foreach (Object obj in targets)
+            foreach (object obj in targets)
             {
                 Method.Invoke(obj, paramValues);
             }

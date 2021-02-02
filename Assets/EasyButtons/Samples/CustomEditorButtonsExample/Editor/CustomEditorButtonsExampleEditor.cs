@@ -6,24 +6,27 @@
     using UnityEngine;
 
     [CustomEditor(typeof(CustomEditorButtonsExample))]
-    public class CustomEditorButtonsExampleEditor : ObjectEditor
+    public class CustomEditorButtonsExampleEditor : Editor
     {
-        // Make sure to override OnEnable instead of creating a new private one.
-        protected override void OnEnable()
+        private ButtonsDrawer _buttonsDrawer;
+
+        // Instantiate ButtonsDrawer in OnEnable if possible.
+        private void OnEnable()
         {
-            base.OnEnable();
-            Debug.Log("Custom OnEnable called.");
+            _buttonsDrawer = new ButtonsDrawer(target);
         }
 
         public override void OnInspectorGUI()
         {
+            DrawDefaultInspector();
+
             EditorGUILayout.HelpBox("Message from the custom editor.", MessageType.Info);
 
             // You can draw all buttons at once.
-            DrawEasyButtons();
+            _buttonsDrawer.DrawButtons(targets);
 
             // As well as a specific button in the wanted place.
-            Buttons.First(button => button.DisplayName == "Custom Editor Example").Draw(targets);
+            _buttonsDrawer.Buttons.First(button => button.DisplayName == "Custom Editor Example").Draw(targets);
         }
     }
 }

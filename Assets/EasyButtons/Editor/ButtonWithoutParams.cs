@@ -9,12 +9,12 @@
         public ButtonWithoutParams(MethodInfo method, ButtonAttribute buttonAttribute)
             : base(method, buttonAttribute) { }
 
-        protected override void DrawInternal(Object[] targets)
+        protected override void DrawInternal(object[] targets)
         {
             if ( ! GUILayout.Button(DisplayName))
                 return;
 
-            foreach (Object obj in targets)
+            foreach (object obj in targets)
             {
                 Method.Invoke(obj, null);
             }

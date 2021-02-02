@@ -82,28 +82,34 @@ The `Button` attribute has different options that allow customizing the button l
 
 ## Custom Editors
 
-If you want to show buttons in a custom editor, you need to derive it from the `ObjectEditor` class.
+If you want to show buttons in a custom editor, you can use the **ButtonsDrawer** class defined in EasyButtons.Editor.
 
-First-of-all, if you use `OnEnable()` in the custom editor, mark it `protected override` instead of `private` and use `base.OnEnable()` inside, like this:
+Instantiate ButtonsDrawer in OnEnable if possible, then draw the buttons with help of the DrawButtons method, as in the example:
 
 ```csharp
 [CustomEditor(typeof(Example))]
 public class CustomEditor : ObjectEditor
-{
-   // Make sure to override OnEnable instead of creating a new private one.
-   protected override void OnEnable()
-   {
-	   base.OnEnable();
-	// Do the rest of initialization.
-   }
+{   
+    private ButtonsDrawer _buttonsDrawer;
+
+    private void OnEnable()
+    {
+        _buttonsDrawer = new ButtonsDrawer(target);
+    }
+
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+        _buttonsDrawer.DrawButtons(targets);
+    }
 }
 ```
 
-Then, you can draw all the buttons in `OnInspectorGUI` with help of the `DrawEasyButtons()` method, or draw only specific buttons in the wanted places, like this:
+You can also draw only specific buttons:
 
 ```csharp
 // Draw only the button called "Custom Editor Example"
-Buttons.First(button => button.DisplayName == "Custom Editor Example").Draw(targets);
+_buttonsDrawers.Buttons.First(button => button.DisplayName == "Custom Editor Example").Draw(targets);
 ```
 
 You can search for a specific button using its ***DisplayName*** or ***Method*** (MethodInfo object the button is attached to.)
