@@ -1,5 +1,5 @@
 {
-  "tagFormat": "${version}",
+  "tagFormat": "v${version}",
   "plugins": [
     ["@semantic-release/commit-analyzer", { "preset": "angular" }],
     "@semantic-release/release-notes-generator",
