@@ -8,12 +8,12 @@ jobs:
     name: release
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.3.4
       with:
         fetch-depth: 0
     - name: Semantic release
       id: semantic
-      uses: cycjimmy/semantic-release-action@v2
+      uses: cycjimmy/semantic-release-action@v2.5.3
       with:
         extra_plugins: |
           @semantic-release/changelog
