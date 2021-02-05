@@ -1,14 +1,42 @@
 # Easy buttons for the Unity default inspector
+[![openupm](https://img.shields.io/npm/v/com.madsbangh.easybuttons?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.madsbangh.easybuttons/)
+
 These tiny scripts add the ability to quickly show a button in the inspector for any method.
 
-### Install via Git URL
+## Installation
+
+### OpenUPM
+
+Once you have the OpenUPM cli, run the following command:
+
+```openupm install com.madsbangh.easybuttons```
+
+Or if you don't have it, add the scoped registry to manifest.json with the desired version: 
+```json
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.madsbangh.easybuttons",
+        "com.openupm"
+      ]
+    }
+  ],
+  "dependencies": {
+    "com.madsbangh.easybuttons": "1.2.0"
+  }
+```
+
+### Git URL
+
 Project supports Unity Package Manager. To install the project as a Git package do the following:
 
 1. In Unity, open **Window** -> **Package Manager**.
 2. Press the **+** button, choose "**Add package from git URL...**"
 3. Enter "https://github.com/madsbangh/EasyButtons.git#upm" and press **Add**.
 
-### Add to project Assets
+### Unity Package
 Alternatively, you can add the code directly to the project:
 
 1. Clone the repo or download the latest release.
