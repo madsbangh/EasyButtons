@@ -4,6 +4,7 @@
     using JetBrains.Annotations;
     using UnityEditor;
     using Utils;
+    using UnityEngine;
 
     /// <summary>
     /// A class that holds information about a button and can draw it in the inspector.
@@ -36,7 +37,7 @@
             _disabled = ! (buttonAttribute.Mode == ButtonMode.AlwaysEnabled || inAppropriateMode);
         }
 
-        public void Draw(object[] targets)
+        public void Draw(Object[] targets)
         {
             using (new EditorGUI.DisabledScope(_disabled))
             {
@@ -63,6 +64,6 @@
             }
         }
 
-        protected abstract void DrawInternal(object[] targets);
+        protected abstract void DrawInternal(Object[] targets);
     }
 }

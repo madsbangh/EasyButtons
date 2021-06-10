@@ -8,7 +8,7 @@
         public ButtonWithoutParams(MethodInfo method, ButtonAttribute buttonAttribute)
             : base(method, buttonAttribute) { }
 
-        protected override void DrawInternal(object[] targets)
+        protected override void DrawInternal(Object[] targets)
         {
             if ( ! GUILayout.Button(DisplayName))
                 return;

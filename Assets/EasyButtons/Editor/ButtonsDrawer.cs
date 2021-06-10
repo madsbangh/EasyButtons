@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using JetBrains.Annotations;
+    using UnityEngine;
 
     /// <summary>
     /// Helper class that can be used in custom Editors to draw methods marked with the <see cref="ButtonAttribute"/> as buttons.
@@ -40,7 +41,7 @@
         /// <summary>
         /// Draws all the methods marked with <see cref="ButtonAttribute"/>.
         /// </summary>
-        public void DrawButtons(object[] targets)
+        public void DrawButtons(Object[] targets)
         {
             foreach (Button button in Buttons)
             {

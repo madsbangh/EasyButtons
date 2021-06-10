@@ -20,7 +20,7 @@
             _expanded = buttonAttribute.Expanded;
         }
 
-        protected override void DrawInternal(object[] targets)
+        protected override void DrawInternal(Object[] targets)
         {
             (Rect foldoutRect, Rect buttonRect) = DrawUtility.GetFoldoutAndButtonRects(DisplayName);
 
