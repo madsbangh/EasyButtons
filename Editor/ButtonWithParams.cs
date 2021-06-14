@@ -7,6 +7,7 @@
     using UnityEngine;
     using Utils;
     using Object = UnityEngine.Object;
+    using System.Collections.Generic;
 
     internal class ButtonWithParams : Button
     {
@@ -20,7 +21,7 @@
             _expanded = buttonAttribute.Expanded;
         }
 
-        protected override void DrawInternal(object[] targets)
+        protected override void DrawInternal(IEnumerable<object> targets)
         {
             (Rect foldoutRect, Rect buttonRect) = DrawUtility.GetFoldoutAndButtonRects(DisplayName);
 
