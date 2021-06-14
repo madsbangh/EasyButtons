@@ -40,7 +40,7 @@
         /// <summary>
         /// Draws all the methods marked with <see cref="ButtonAttribute"/>.
         /// </summary>
-        public void DrawButtons(object[] targets)
+        public void DrawButtons(IEnumerable<object> targets)
         {
             foreach (Button button in Buttons)
             {
