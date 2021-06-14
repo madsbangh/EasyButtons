@@ -13,7 +13,8 @@
         /// <summary>
         /// A list of buttons that can be drawn for the class.
         /// </summary>
-        [PublicAPI] public readonly List<Button> Buttons = new List<Button>();
+        [PublicAPI]
+        public readonly List<Button> Buttons = new List<Button>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ButtonsDrawer"/> class and fills <see cref="Buttons"/> with
@@ -23,8 +24,7 @@
         /// <param name="target">Editor's target.</param>
         public ButtonsDrawer(Object target)
         {
-            const BindingFlags flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
-                                       BindingFlags.NonPublic;
+            const BindingFlags flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
             var methods = target.GetType().GetMethods(flags);
 
             foreach (MethodInfo method in methods)
