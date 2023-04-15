@@ -14,8 +14,12 @@
             if ( ! GUILayout.Button(DisplayName))
                 return;
 
-            foreach (object obj in targets)
-            {
+            InvokeMethod(targets);
+        }
+
+        protected virtual void InvokeMethod(IEnumerable<object> targets)
+        {
+            foreach (object obj in targets) {
                 Method.Invoke(obj, null);
             }
         }

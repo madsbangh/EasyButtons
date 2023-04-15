@@ -1,7 +1,6 @@
 namespace EasyButtons.Editor
 {
     using System.Reflection;
-    using UnityEngine;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -10,13 +9,9 @@ namespace EasyButtons.Editor
         public ButtonWithoutParamsAsync(MethodInfo method, ButtonAttribute buttonAttribute)
             : base(method, buttonAttribute) { }
 
-        protected async override void DrawInternal(IEnumerable<object> targets)
+        protected async override void InvokeMethod(IEnumerable<object> targets)
         {
-            if ( ! GUILayout.Button(DisplayName))
-                return;
-
-            foreach (object obj in targets)
-            {
+            foreach (object obj in targets) {
                 Task task = (Task)Method.Invoke(obj, null);
                 await task;
             }
