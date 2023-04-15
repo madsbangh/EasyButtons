@@ -5,6 +5,7 @@
     using UnityEditor;
     using Utils;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// A class that holds information about a button and can draw it in the inspector.
@@ -53,14 +54,21 @@
         internal static Button Create(MethodInfo method, ButtonAttribute buttonAttribute)
         {
             var parameters = method.GetParameters();
-
             if (parameters.Length == 0)
             {
-                return new ButtonWithoutParams(method, buttonAttribute);
+                if (method.ReturnType != typeof(Task)) {
+                    return new ButtonWithoutParams(method, buttonAttribute);
+                } else {
+                    return new ButtonWithoutParamsAsync(method, buttonAttribute);
+                }
             }
             else
             {
-                return new ButtonWithParams(method, buttonAttribute, parameters);
+                if (method.ReturnType != typeof(Task)) {
+                    return new ButtonWithParams(method, buttonAttribute, parameters);
+                } else {
+                    return new ButtonWithParamsAsync(method, buttonAttribute, parameters);
+                }
             }
         }
 
