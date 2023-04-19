@@ -11,7 +11,7 @@
 
     internal class ButtonWithParams : Button
     {
-        private readonly Parameter[] _parameters;
+        protected readonly Parameter[] _parameters;
         private bool _expanded;
 
         public ButtonWithParams(MethodInfo method, ButtonAttribute buttonAttribute, ParameterInfo[] parameters)
@@ -36,15 +36,18 @@
             if ( ! GUI.Button(buttonRect, "Invoke"))
                 return;
 
+            InvokeMethod(targets);
+        }
+
+        protected virtual void InvokeMethod(IEnumerable<object> targets) {
             var paramValues = _parameters.Select(param => param.Value).ToArray();
 
-            foreach (object obj in targets)
-            {
+            foreach (object obj in targets) {
                 Method.Invoke(obj, paramValues);
             }
         }
 
-        private readonly struct Parameter
+        protected readonly struct Parameter
         {
             private readonly FieldInfo _fieldInfo;
             private readonly ScriptableObject _scriptableObj;
