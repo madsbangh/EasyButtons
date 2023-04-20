@@ -24,7 +24,7 @@ Or if you don't have it, add the scoped registry to manifest.json with the desir
     }
   ],
   "dependencies": {
-    "com.madsbangh.easybuttons": "1.3.0"
+    "com.madsbangh.easybuttons": "1.4.0"
   }
 ```
 
