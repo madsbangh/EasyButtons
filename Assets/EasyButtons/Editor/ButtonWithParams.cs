@@ -55,7 +55,7 @@
 
             public Parameter(ParameterInfo paramInfo)
             {
-                Type generatedType = ScriptableObjectCache.GetClass(paramInfo.Name, paramInfo.ParameterType);
+                Type generatedType = ScriptableObjectCache.GetClass(paramInfo.Name, paramInfo.ParameterType, paramInfo.HasDefaultValue, paramInfo.DefaultValue);
                 _scriptableObj = ScriptableObject.CreateInstance(generatedType);
                 _fieldInfo = generatedType.GetField(paramInfo.Name);
                 _editor = CreateEditor<NoScriptFieldEditor>(_scriptableObj);
