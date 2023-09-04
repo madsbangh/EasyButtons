@@ -1,16 +1,17 @@
-﻿using System;
-using System.Reflection;
-using System.Reflection.Emit;
-
-namespace EasyButtons.Editor.Utils
+﻿namespace EasyButtons.Editor.Utils
 {
+    using System;
+    using System.Reflection;
+    using System.Reflection.Emit;
+
     public static class DefaultValuesUtility
     {
         public static void InjectDefaultValue(TypeBuilder typeBuilder, FieldBuilder fieldBuilder, object defaultValue)
         {
-            if (!defaultValue.GetType().IsUnitySerializablePrimitive())
+            var valueType = defaultValue.GetType();
+            if (!valueType.IsEnum && !valueType.IsUnitySerializablePrimitive())
                 return;
-            
+
             // Define the constructor for the type
             var constructorBuilder = typeBuilder.DefineConstructor(MethodAttributes.Public,
                 CallingConventions.Standard, Type.EmptyTypes);
@@ -28,9 +29,15 @@ namespace EasyButtons.Editor.Utils
             // Return from the constructor
             constructorIL.Emit(OpCodes.Ret);
         }
-        
+
         private static void PushOntoStack(ILGenerator il, object defaultValue)
         {
+            if (defaultValue.GetType().IsEnum)
+            {
+                il.Emit(OpCodes.Ldc_I4, (int)defaultValue);
+                return;
+            }
+
             switch (defaultValue)
             {
                 case bool boolValue:
@@ -61,11 +68,11 @@ namespace EasyButtons.Editor.Utils
                     il.Emit(OpCodes.Ldc_I8, longValue);
                     break;
                 case ulong ulongValue:
-                    il.Emit(OpCodes.Ldc_I8, (long) ulongValue);
+                    il.Emit(OpCodes.Ldc_I8, (long)ulongValue);
                     break;
                 case short shortValue:
                     il.Emit(OpCodes.Ldc_I4_S, shortValue);
-                    break; 
+                    break;
                 case ushort ushortValue:
                     il.Emit(OpCodes.Ldc_I4_S, ushortValue);
                     break;
