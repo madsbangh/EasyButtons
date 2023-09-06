@@ -48,6 +48,14 @@
 
             return _unitySerializablePrimitiveTypes.Contains(type) || _unitySerializableBuiltinTypes.Contains(type);
         }
+        
+        /// <summary>Checks if the type is a primitive type serializable by Unity.</summary>
+        /// <param name="type">The type to check.</param>
+        /// <returns><see langword="true"/> if the type is a primitive type that can be serialized by Unity.</returns>
+        public static bool IsUnitySerializablePrimitive(this Type type)
+        {
+            return _unitySerializablePrimitiveTypes.Contains(type);
+        }
 
         /// <summary>
         /// Collects all the serializable fields of a class: private ones with SerializeField attribute and public ones.
