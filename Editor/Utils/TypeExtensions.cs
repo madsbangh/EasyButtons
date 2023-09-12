@@ -49,6 +49,38 @@
             return _unitySerializablePrimitiveTypes.Contains(type) || _unitySerializableBuiltinTypes.Contains(type);
         }
         
+        /// <summary>
+        /// Checks if the type is a nullable type with a Unity-serializable type as a generic argument.
+        /// </summary>
+        /// <param name="type">The type to check.</param>
+        /// <param name="genericArgument">The generic argument of the nullable type. Set to NonSerializedError if the method returns false.</param>
+        /// <example><code>
+        /// Type nullableIntType = typeof(int?);
+        /// bool isNullableOfUnitySerializable = nullableIntType.IsNullableOfUnitySerializable(out Type genericArgument);
+        /// Debug.Log(isNullableOfUnitySerializable); // true
+        /// Debug.Log(genericArgument); // System.Int32
+        /// </code></example>
+        /// <returns></returns>
+        public static bool IsNullableOfUnitySerializable(this Type type, out Type genericArgument)
+        {
+            genericArgument = typeof(NonSerializedError);
+            
+            if (!type.IsGenericType)
+                return false;
+
+            Type genericType = type.GetGenericTypeDefinition();
+            if (genericType != typeof(Nullable<>))
+                return false;
+
+            Type[] genericArguments = type.GetGenericArguments();
+            if (!genericArguments[0].IsUnitySerializable()) 
+                return false;
+            
+            genericArgument = genericArguments[0];
+            return true;
+
+        }
+        
         /// <summary>Checks if the type is a primitive type serializable by Unity.</summary>
         /// <param name="type">The type to check.</param>
         /// <returns><see langword="true"/> if the type is a primitive type that can be serialized by Unity.</returns>
