@@ -32,11 +32,9 @@
 
             if (_classDict.TryGetValue(className, out Type classType))
                 return classType;
-
-            if (!fieldType.IsUnitySerializable())
-            {
+            
+            if (!fieldType.IsUnitySerializable() && !fieldType.IsNullableOfUnitySerializable(out fieldType)) 
                 fieldType = typeof(NonSerializedError);
-            }
 
             classType = CreateClass(className, fieldName, fieldType, hasDefaultValue, defaultValue);
             _classDict[className] = classType;
